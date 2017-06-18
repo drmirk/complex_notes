@@ -16,8 +16,13 @@
     border-style: outset;
 }
 
+a:focus, a:hover{
+    text-decoration : none;
+    color : #000;
+}
 a {
     text-decoration : none;
     color : #000;
 }
+
 
