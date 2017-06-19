@@ -9,105 +9,110 @@
         <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
     </head>
     <body>
-        <div>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        {{ message }}
+        <div class="container-fluid">
+            <div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="row">
+                <div class="col-xl-2">
+                    <div class=single_preview>
+                        <form method="POST" id="notebook">
+                            {{ notebook_form.notebook_new_title }}<br>
+                            {{ notebook_form.notebook_new_btn(class="btn btn-primary btn-sm") }}<br>
+                            {{ notebook_form.notebook_current_title }}<br>
+                            {{ notebook_form.notebook_save_btn(class="btn btn-success btn-sm") }}
+                            {{ notebook_form.notebook_delete_btn(class="btn btn-danger btn-sm") }}
+                        </form>
+                    </div>
+                    {% for notebook in notebooks %}
+                        <div class=single_preview>
+                            <a href="{{ url_for('notebook_view', notebook_id=notebook.id) }}">
+                                <h3>{{ notebook.get_title() }}</h3>
+                            </a>
+                        </div>
                     {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
-        <div class=all_notes tabindex="6">
-        <div class=single_preview>
-        <form method="POST" id="notebook">
-            {{ notebook_form.notebook_new_title }}<br>
-            {{ notebook_form.notebook_new_btn(class="btn btn-primary btn-sm") }}<br>
-            {{ notebook_form.notebook_current_title }}<br>
-            {{ notebook_form.notebook_save_btn(class="btn btn-success btn-sm") }}
-            {{ notebook_form.notebook_delete_btn(class="btn btn-danger btn-sm") }}
-        </form>
-        </div>
-        {% for notebook in notebooks %}
-            <div class=single_preview>
-                <a href="{{ url_for('notebook_view', notebook_id=notebook.id) }}">
-                <h3>{{ notebook.get_title() }}</h3>
-                </a>
+                </div>
+                <div class="col-xl-2">
+                    <div class=single_preview>
+                        <form method="POST" id="section">
+                            {{ section_form.section_new_title }}<br>
+                            {{ section_form.section_new_btn(class="btn btn-primary btn-sm") }}<br>
+                            {{ section_form.section_current_title }}<br>
+                            {{ section_form.section_save_btn(class="btn btn-success btn-sm") }}
+                            {{ section_form.section_delete_btn(class="btn btn-danger btn-sm") }}
+                        </form>
+                    </div>
+                    {% for section in all_sections %}
+                        <div class=single_preview>
+                            <a href="{{ url_for('section_view', section_id=section.id)  }}">
+                                <h3>{{ section.get_title() }}</h3>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-xl-2">
+                {% for note in all_notes %}
+                    <div class=single_preview>
+                        <a href="{{ url_for('note_view', note_id=note.id) }}">
+                            <h3>{{ note.get_title() }}</h3>
+                            <p>{{ note.get_preview() | safe }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="col-xl-6">
+                    <form method="POST" id="main_form">
+                        {{ note_form.csrf_token }}
+                        {{ note_form.note_new_btn(class="btn btn-primary btn-sm") }}
+                        {{ note_form.note_save_btn(class="btn btn-success btn-sm") }}
+                        {{ note_form.note_delete_btn(class="btn btn-danger btn-sm") }}<br>
+                        {{ note_form.note_title }}<br>
+                        {{ note_form.note_creation_date }}<br>
+                        {{ note_form.note_modification_date }}<br>
+                        {{ note_form.note_body }}
+                    </form>
+                </div>
             </div>
-        {% endfor %}
         </div>
-        <div class=all_notes tabindex="6">
-        <div class=single_preview>
-        <form method="POST" id="section">
-            {{ section_form.section_new_title }}<br>
-            {{ section_form.section_new_btn(class="btn btn-primary btn-sm") }}<br>
-            {{ section_form.section_current_title }}<br>
-            {{ section_form.section_save_btn(class="btn btn-success btn-sm") }}
-            {{ section_form.section_delete_btn(class="btn btn-danger btn-sm") }}
-        </div>
-        {% for section in all_sections %}
-            <div class=single_preview>
-                <a href="{{ url_for('section_view', section_id=section.id)  }}">
-                <h3>{{ section.get_title() }}</h3>
-                </a>
-            </div>
-        {% endfor %}
-        </div>
-        <div class=all_notes tabindex="6">
-        {% for note in all_notes %}
-            <div class=single_preview>
-                <a href="{{ url_for('note_view', note_id=note.id) }}">
-                <h3>{{ note.get_title() }}</h3>
-                <p>{{ note.get_preview() | safe }}</p>
-                </a>
-            </div>
-        {% endfor %}
-        </div>
-        <div class=single_note>
-            <form method="POST" id="main_form">
-                {{ note_form.csrf_token }}
-                {{ note_form.note_new_btn(class="btn btn-primary btn-sm") }}
-                {{ note_form.note_save_btn(class="btn btn-success btn-sm") }}
-                {{ note_form.note_delete_btn(class="btn btn-danger btn-sm") }}<br>
-                {{ note_form.note_title }}<br>
-                {{ note_form.note_creation_date }}<br>
-                {{ note_form.note_modification_date }}<br>
-                {{ note_form.note_body }}
-            </form>
-        </div>
-            <script>
-               CKEDITOR.replace( 'note_body', {
-                    extraPlugins: 'autogrow',
-                    autoGrow_onStartup: true,
-                    removePlugins: 'resize',
-                    filebrowserBrowseUrl: "{{ url_for('upload_file') }}",
-                    filebrowserUploadUrl: "{{ url_for('upload_file') }}",
-                    filebrowserWindowWidth  : 100,
-                    filebrowserWindowHeight : 200,
-                    tabSpaces : 4,
-                    toolbar : [
-                        { name: 'tools', items: [ 'Maximize' ] },
-                        { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
-                        { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'  ] },
-                        { name: 'editing', items: [ 'SelectAll', '-','Find', 'Replace', '-',  'Scayt', 'AutoCorrect' ] },
-                        { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-                        { name: 'bidi', items: [ 'BidiLtr', 'BidiRtl' ] },
-                        { name: 'insert', items: [ 'CodeSnippet', 'Image', 'Table', 'Smiley', 'SpecialChar' ] },
-                        { name: 'insert', items: [ 'HorizontalRule', 'PageBreak' ] },
-                        { name: 'insert', items: [ 'Blockquote', 'CreateDiv' ] },
-                        { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-                        { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline' ] },
-                        { name: 'basicstyles', items: [ 'Strike', 'Subscript', 'Superscript' ] },
-                        { name: 'basicstyles', items: [ 'CopyFormatting', 'RemoveFormat' ] },
-                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
-                        { name: 'paragraph', items: [ 'Outdent', 'Indent' ] },
-                        { name: 'paragraph', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-' ] },
-                        { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
-                    ],
-                });
-            </script>
-            <script src="{{ url_for('static', filename='js/jquery-3.1.1.slim.min.js') }}"></script>
-            <script src="{{ url_for('static', filename='js/tether.min.js') }}"></script>
-            <script src="{{ url_for('static', filename='js/bootstrap.min.js') }} "></script>
+        <script>
+            CKEDITOR.replace( 'note_body', {
+                extraPlugins: 'autogrow',
+                autoGrow_onStartup: true,
+                removePlugins: 'resize',
+                filebrowserBrowseUrl: "{{ url_for('upload_file') }}",
+                filebrowserUploadUrl: "{{ url_for('upload_file') }}",
+                filebrowserWindowWidth  : 100,
+                filebrowserWindowHeight : 200,
+                tabSpaces : 4,
+                toolbar : [
+                    { name: 'tools', items: [ 'Maximize' ] },
+                    { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                    { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'  ] },
+                    { name: 'editing', items: [ 'SelectAll', '-','Find', 'Replace', '-',  'Scayt', 'AutoCorrect' ] },
+                    { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+                    { name: 'bidi', items: [ 'BidiLtr', 'BidiRtl' ] },
+                    { name: 'insert', items: [ 'CodeSnippet', 'Image', 'Table', 'Smiley', 'SpecialChar' ] },
+                    { name: 'insert', items: [ 'HorizontalRule', 'PageBreak' ] },
+                    { name: 'insert', items: [ 'Blockquote', 'CreateDiv' ] },
+                    { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline' ] },
+                    { name: 'basicstyles', items: [ 'Strike', 'Subscript', 'Superscript' ] },
+                    { name: 'basicstyles', items: [ 'CopyFormatting', 'RemoveFormat' ] },
+                    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
+                    { name: 'paragraph', items: [ 'Outdent', 'Indent' ] },
+                    { name: 'paragraph', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-' ] },
+                    { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+                ],
+            });
+        </script>
+        <script src="{{ url_for('static', filename='js/jquery-3.1.1.slim.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/tether.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }} "></script>
     </body>
 </html>
