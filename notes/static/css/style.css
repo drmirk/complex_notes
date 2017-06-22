@@ -20,6 +20,10 @@
   padding: 0px;
 }
 
+.title {
+    width: 100%;
+}
+
 a:focus, a:hover{
     text-decoration : none;
     color : #000;
