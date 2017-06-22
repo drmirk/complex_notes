@@ -8,7 +8,7 @@ from wtforms.fields.html5 import DateTimeLocalField
 class NotesForm(FlaskForm):
     '''using flask-wtf to create a
     form class for notes'''
-    note_title = StringField()
+    note_title = TextAreaField()
     note_body = TextAreaField()
     note_creation_date = DateTimeLocalField()
     note_modification_date = DateTimeLocalField()
