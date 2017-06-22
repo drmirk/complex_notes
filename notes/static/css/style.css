@@ -16,6 +16,10 @@
     border-style: outset;
 }
 
+.container-fluid {
+  padding: 0px;
+}
+
 a:focus, a:hover{
     text-decoration : none;
     color : #000;
