@@ -27,7 +27,7 @@
                     TEST
                 </div>
                 <div class="col-xl-3 single_preview">
-                    <div class=single_preview>
+                    <!--<div class=single_preview>
                         <form method="POST" id="notebook">
                             {{ notebook_form.notebook_new_title }}<br>
                             {{ notebook_form.notebook_new_btn(class="btn btn-primary btn-sm") }}<br>
@@ -35,7 +35,7 @@
                             {{ notebook_form.notebook_save_btn(class="btn btn-success btn-sm") }}
                             {{ notebook_form.notebook_delete_btn(class="btn btn-danger btn-sm") }}
                         </form>
-                    </div>
+                    </div>-->
                     {% for notebook in notebooks %}
                     <div>
                         <a href="{{ url_for('notebook_view', notebook_id=notebook.id) }}">
@@ -45,7 +45,7 @@
                     {% endfor %}
                 </div>
                 <div class="col-xl-3 single_preview">
-                    <div class=single_preview>
+                    <!--<div class=single_preview>
                         <form method="POST" id="section">
                             {{ section_form.section_new_title }}<br>
                             {{ section_form.section_new_btn(class="btn btn-primary btn-sm") }}<br>
@@ -53,7 +53,7 @@
                             {{ section_form.section_save_btn(class="btn btn-success btn-sm") }}
                             {{ section_form.section_delete_btn(class="btn btn-danger btn-sm") }}
                         </form>
-                    </div>
+                    </div>-->
                     {% for section in all_sections %}
                     <div>
                         <a href="{{ url_for('section_view', section_id=section.id)  }}">
@@ -76,9 +76,9 @@
             <div class="col-xl-7">
                 <form method="POST" id="main_form">
                     {{ note_form.csrf_token }}
-                    {{ note_form.note_new_btn(class="btn btn-primary btn-sm") }}
+                    <!--{{ note_form.note_new_btn(class="btn btn-primary btn-sm") }}
                     {{ note_form.note_save_btn(class="btn btn-success btn-sm") }}
-                    {{ note_form.note_delete_btn(class="btn btn-danger btn-sm") }}<br>
+                    {{ note_form.note_delete_btn(class="btn btn-danger btn-sm") }}<br>-->
                     {{ note_form.note_title }}<br>
                     {{ note_form.note_creation_date }}<br>
                     {{ note_form.note_modification_date }}<br>
