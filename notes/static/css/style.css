@@ -20,6 +20,10 @@
   padding: 0px;
 }
 
+html {
+    text-align: justify;
+    font-size: 1em;
+}
 .title {
     width: 100%;
 }
