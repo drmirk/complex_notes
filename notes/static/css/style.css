@@ -24,6 +24,15 @@ html {
     text-align: justify;
     font-size: 1em;
 }
+
+body {
+    height: 100%;
+}
+
+.viewport {
+    height: 100vh;
+    overflow-y: auto;
+}
 .title {
     width: 100%;
 }
