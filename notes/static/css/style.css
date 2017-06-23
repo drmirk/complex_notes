@@ -43,7 +43,15 @@ body {
     margin-top: 0;
     margin-bottom: 1rem;
 }
+.horizontal_line {
+    border-bottom: thin solid #e8eff9;
+    padding-bottom: 1rem;
+}
 
+.vertical_line {
+    border-right: thin solid #e8eff9;
+    border-right: thin solid #e8eff9;
+}
 .viewport {
     height: 100vh;
     overflow-y: auto;

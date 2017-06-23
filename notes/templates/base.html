@@ -23,11 +23,11 @@
         </div>
         <div class="row no-gutters">
             <div class="row col-xl-5 no-gutters">
-                <div class="col-xl-1 no-gutters single_preview">
+                <div class="col-xl-1 no-gutters vertical_line">
                     TEST
                 </div>
-                <div class="col-xl-3 viewport line_height single_preview">
-                    <!--<div class=single_preview>
+                <div class="col-xl-3 viewport line_height vertical_line">
+                    <!--<div>
                         <form method="POST" id="notebook">
                             {{ notebook_form.notebook_new_title }}<br>
                             {{ notebook_form.notebook_new_btn(class="btn btn-primary btn-sm") }}<br>
@@ -39,13 +39,13 @@
                     {% for notebook in notebooks %}
                     <div>
                         <a href="{{ url_for('notebook_view', notebook_id=notebook.id) }}">
-                            <p>{{ notebook.get_title() }}</p>
+                            <p class="horizontal_line">{{ notebook.get_title() }}</p>
                         </a>
                     </div>
                     {% endfor %}
                 </div>
-                <div class="col-xl-3 viewport line_height single_preview">
-                    <!--<div class=single_preview>
+                <div class="col-xl-3 viewport line_height vertical_line">
+                    <!--<div>
                         <form method="POST" id="section">
                             {{ section_form.section_new_title }}<br>
                             {{ section_form.section_new_btn(class="btn btn-primary btn-sm") }}<br>
@@ -57,17 +57,17 @@
                     {% for section in all_sections %}
                     <div>
                         <a href="{{ url_for('section_view', section_id=section.id)  }}">
-                            <p>{{ section.get_title() }}</p>
+                            <p class="horizontal_line">{{ section.get_title() }}</p>
                         </a>
                     </div>
                     {% endfor %}
                 </div>
-                <div class="col-xl-5 viewport line_height single_preview">
+                <div class="col-xl-5 viewport line_height vertical_line">
                     {% for note in all_notes %}
                     <div>
                         <a href="{{ url_for('note_view', note_id=note.id) }}">
                             <p class="note_title_gap"><strong>{{ note.get_title() }}</strong></p>
-                            <p class="note_preview_gap">{{ note.get_preview() | safe }}</p>
+                            <p class="note_preview_gap horizontal_line">{{ note.get_preview() | safe }}</p>
                         </a>
                     </div>
                     {% endfor %}
