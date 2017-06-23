@@ -62,7 +62,7 @@ body {
 
 a:focus, a:hover{
     text-decoration : none;
-    color : #000;
+    color : white;
 }
 a {
     text-decoration : none;
@@ -70,3 +70,6 @@ a {
 }
 
 
+.hover_choice:hover {
+    background-color: #727272;
+}
