@@ -26,7 +26,7 @@
                 <div class="col-xl-1 no-gutters single_preview">
                     TEST
                 </div>
-                <div class="col-xl-3 viewport single_preview">
+                <div class="col-xl-3 viewport line_height single_preview">
                     <!--<div class=single_preview>
                         <form method="POST" id="notebook">
                             {{ notebook_form.notebook_new_title }}<br>
@@ -44,7 +44,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <div class="col-xl-3 viewport single_preview">
+                <div class="col-xl-3 viewport line_height single_preview">
                     <!--<div class=single_preview>
                         <form method="POST" id="section">
                             {{ section_form.section_new_title }}<br>
@@ -62,12 +62,12 @@
                     </div>
                     {% endfor %}
                 </div>
-                <div class="col-xl-5 viewport single_preview">
+                <div class="col-xl-5 viewport line_height single_preview">
                     {% for note in all_notes %}
                     <div>
                         <a href="{{ url_for('note_view', note_id=note.id) }}">
-                            <p>{{ note.get_title() }}</p>
-                            <p>{{ note.get_preview() | safe }}</p>
+                            <p class="note_title_gap"><strong>{{ note.get_title() }}</strong></p>
+                            <p class="note_preview_gap">{{ note.get_preview() | safe }}</p>
                         </a>
                     </div>
                     {% endfor %}

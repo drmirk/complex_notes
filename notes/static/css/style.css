@@ -29,6 +29,21 @@ body {
     height: 100%;
 }
 
+.line_height {
+    line-height: 90%;
+}
+
+.note_title_gap {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.25rem;
+}
+
+.note_preview_gap {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
 .viewport {
     height: 100vh;
     overflow-y: auto;
