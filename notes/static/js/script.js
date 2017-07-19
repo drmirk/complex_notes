@@ -1,3 +1,4 @@
+/* CKEDITOR code with customization for base.html */
 CKEDITOR.replace('note_body', {
     extraPlugins: 'autogrow',
     autoGrow_onStartup: true,
@@ -28,3 +29,10 @@ CKEDITOR.replace('note_body', {
     ],
 });
 
+/* AJAX to load note without completely refreshing page */
+$(document).ready(function(){
+    $('.single_notes').on('click', function (event) {
+        event.preventDefault();
+		alert('Kolla');
+	});
+});
