@@ -1,7 +1,7 @@
 '''Import app object'''
 from __init__ import *
 '''Import flask objects'''
-from flask import render_template, request, url_for, redirect, flash
+from flask import render_template, request, url_for, redirect, flash, jsonify
 
 
 def note_button(note_form, single_note, parent_notebook, parent_section, create_new_note=False):
@@ -370,4 +370,10 @@ def new_note_view(parent_notebook, parent_section):
 
 @app.route('/only_note/<int:note_id>')
 def only_note(note_id):
-    pass
+    '''this function returns only a single note'''
+    single_note = Note.query.get_or_404(note_id)
+    title = single_note.get_title()
+    note_body = single_note.get_body()
+    note_creation_date = single_note.get_creation_date()
+    note_modification_date = single_note.get_modification_date()
+    return jsonify({'result': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date})
