@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-xl-5 viewport line_height vertical_line">
                     {% for note in all_notes %}
-                    <div class="hover_choice single_notes">
+                    <div class="hover_choice single_notes" id="{{ note.id }}">
                         <a href="{{ url_for('note_view', note_id=note.id) }}">
                             <p class="note_title_gap"><strong>{{ note.get_title() }}</strong></p>
                             <p class="note_preview_gap horizontal_line">{{ note.get_preview() | safe }}</p>

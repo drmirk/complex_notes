@@ -33,6 +33,12 @@ CKEDITOR.replace('note_body', {
 $(document).ready(function(){
     $('.single_notes').on('click', function (event) {
         event.preventDefault();
-		alert('Kolla');
+        var note_id = $(this).attr('id');
+        url = "/only_note/" + note_id
+        req = $.ajax({
+            url: url,
+            method: 'GET'
+        });
+        console.log(note_id);
 	});
 });

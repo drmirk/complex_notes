@@ -367,3 +367,7 @@ def new_note_view(parent_notebook, parent_section):
                 current_section=current_section, notebook_form=notebook_form,
                 section_form=section_form))
 
+
+@app.route('/only_note/<int:note_id>')
+def only_note(note_id):
+    pass
