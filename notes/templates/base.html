@@ -55,7 +55,7 @@
                         </form>
                     </div>-->
                     {% for section in all_sections %}
-                    <div class="hover_choice">
+                    <div class="hover_choice sections" id="{{ section.id }}">
                         <a href="{{ url_for('section_view', section_id=section.id)  }}">
                             <p class="horizontal_line">{{ section.get_title() }}</p>
                         </a>

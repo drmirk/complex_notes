@@ -53,3 +53,17 @@ $(document).ready(function(){
         });
 	});
 });
+
+/* AJAX to load all notes of a section & latest modified note of that section without completely refreshing page */
+ $(document).ready(function(){
+    $('.sections').on('click', function (event) {
+        event.preventDefault();
+        var section_id = $(this).attr('id');
+        url = "/only_section/" + section_id;
+        req = $.ajax({
+            url: url,
+            method: 'GET'
+        });
+        console.log(req);
+	});
+});
