@@ -39,6 +39,17 @@ $(document).ready(function(){
             url: url,
             method: 'GET'
         });
-        console.log(note_id);
+        req.done(function () {
+            /* $('#main_form').fadeOut(100); */
+            var title = req.responseJSON['title'];
+            var note_body = req.responseJSON['note_body'];
+            var note_creation_date = req.responseJSON['note_creation_date'];
+            var note_modification_date = req.responseJSON['note_modification_date'];
+            $('#note_title').val(title);
+            $('#note_creation_date').val(note_creation_date[0]);
+            $('#note_modification_date').val(note_modification_date[0]);
+            CKEDITOR.instances.note_body.setData(note_body);
+            /* $('#main_form').fadeIn(500); */
+        });
 	});
 });
