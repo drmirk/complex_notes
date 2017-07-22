@@ -377,3 +377,29 @@ def only_note(note_id):
     note_creation_date = single_note.get_creation_date()
     note_modification_date = single_note.get_modification_date()
     return jsonify({'result': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date})
+
+
+@app.route('/only_section/<int:section_id>')
+def only_section(section_id):
+    '''this function returns all notes of a section and latest modified note'''
+    all_notes_models = Note.query.filter_by(section_id=section_id).order_by(Note.creation_date.desc()).all()
+    single_note = Note.query.filter_by(section_id=section_id).order_by(Note.modification_date.desc()).first()
+    all_notes = []
+    for note in all_notes_models:
+        singles = {}
+        singles['id'] = note.get_id()
+        singles['title'] = note.get_title()
+        singles['preview'] = note.get_preview()
+        all_notes.append(singles)
+    if single_note is None:
+        title = ''
+        note_body = ''
+        note_creation_date = ''
+        note_modification_date = ''
+    else:
+        title = single_note.get_title()
+        note_body = single_note.get_body()
+        note_creation_date = single_note.get_creation_date()
+        note_modification_date = single_note.get_modification_date()
+    return jsonify({'result': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes})
+
