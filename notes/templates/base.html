@@ -62,7 +62,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <div class="col-xl-5 viewport line_height vertical_line">
+                <div class="col-xl-5 viewport line_height vertical_line all_notes_class">
                     {% for note in all_notes %}
                     <div class="hover_choice single_notes" id="{{ note.id }}">
                         <a href="{{ url_for('note_view', note_id=note.id) }}">
