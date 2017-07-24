@@ -31,8 +31,7 @@ CKEDITOR.replace('note_body', {
 
 /* AJAX to load note without completely refreshing page */
 $(document).ready(function(){
-    // $('.all_notes_class').on('click', '.single_notes', function (event) {
-    $('.single_notes').on('click', function (event) {
+    $('.all_notes_class').on('click', '.single_notes', function (event) {
         event.preventDefault();
         var note_id = $(this).attr('id');
         url = "/only_note/" + note_id
