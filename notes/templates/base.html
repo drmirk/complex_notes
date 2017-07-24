@@ -36,7 +36,7 @@
                             {{ notebook_form.notebook_delete_btn(class="btn btn-danger btn-sm") }}
                         </form>
                     </div>-->
-                    {% for notebook in notebooks %}
+                    {% for notebook in all_notebooks %}
                     <div class="hover_choice">
                         <a href="{{ url_for('notebook_view', notebook_id=notebook.id) }}">
                             <p class="horizontal_line">{{ notebook.get_title() }}</p>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-xl-5 viewport line_height vertical_line all_notes_class">
                     {% for note in all_notes %}
-                    <div class="hover_choice single_notes" id="{{ note.id }}">
+                    <div class="hover_choice notes" id="{{ note.id }}">
                         <a href="{{ url_for('note_view', note_id=note.id) }}">
                             <p class="note_title_gap"><strong>{{ note.get_title() }}</strong></p>
                             <p class="note_preview_gap horizontal_line">{{ note.get_preview() | safe }}</p>

@@ -31,7 +31,7 @@ CKEDITOR.replace('note_body', {
 
 /* AJAX to load note without completely refreshing page */
 $(document).ready(function(){
-    $('.all_notes_class').on('click', '.single_notes', function (event) {
+    $('.all_notes_class').on('click', '.notes', function (event) {
         event.preventDefault();
         var note_id = $(this).attr('id');
         url = "/only_note/" + note_id
@@ -82,7 +82,7 @@ $(document).ready(function(){
             // if section has any note, then load them
             if (all_notes.length > 0) {
                 $(all_notes).each(function () {
-                    $('.all_notes_class').append("<div class='hover_choice single_notes' id=" + this['id'] + "><a href=/note/" + this['id'] + "><p class='note_title_gap'><strong>" + this['title'] + "</strong></p><p class='note_preview_gap horizontal_line'>" + this['preview'] + "</p></a></div>");
+                    $('.all_notes_class').append("<div class='hover_choice notes' id=" + this['id'] + "><a href=/note/" + this['id'] + "><p class='note_title_gap'><strong>" + this['title'] + "</strong></p><p class='note_preview_gap horizontal_line'>" + this['preview'] + "</p></a></div>");
                 });
             }
 

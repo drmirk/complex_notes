@@ -142,8 +142,8 @@ def get_all_sections(section_id):
 def get_all_notebooks(notebook_id):
     '''get all notebooks from database'''
     current_notebook = Notebook.query.get_or_404(notebook_id)
-    notebooks = Notebook.query.all()
-    return current_notebook, notebooks
+    all_notebooks = Notebook.query.all()
+    return current_notebook, all_notebooks
 
 
 def get_all_and_single_notes(section_id):
@@ -164,7 +164,7 @@ def note_view(note_id):
     '''get all sections from database'''
     current_section, parent_notebook, all_sections = get_all_sections(parent_section)
     '''get all notebooks from database'''
-    current_notebook, notebooks = get_all_notebooks(parent_notebook)
+    current_notebook, all_notebooks = get_all_notebooks(parent_notebook)
     '''note button'''
     note_form = NotesForm()
     note_button_press = note_button(note_form, single_note, parent_notebook, parent_section)
@@ -190,7 +190,7 @@ def note_view(note_id):
         return notebook_button_press
     else:
         return (render_template('base.html', note_form=note_form,
-                notebooks=notebooks, all_sections=all_sections, all_notes=all_notes,
+                all_notebooks=all_notebooks, all_sections=all_sections, all_notes=all_notes,
                 single_note=single_note, current_notebook=current_notebook,
                 current_section=current_section, notebook_form=notebook_form,
                 section_form=section_form))
@@ -203,7 +203,7 @@ def section_view(section_id):
     '''get all sections from database'''
     current_section, parent_notebook, all_sections = get_all_sections(section_id)
     '''get all notebooks from database'''
-    current_notebook, notebooks = get_all_notebooks(parent_notebook)
+    current_notebook, all_notebooks = get_all_notebooks(parent_notebook)
     '''get all notes and a single note of a section
     from database in a descending order'''
     all_notes, single_note = get_all_and_single_notes(section_id)
@@ -239,7 +239,7 @@ def section_view(section_id):
         return notebook_button_press
     else:
         return (render_template('base.html', note_form=note_form,
-                notebooks=notebooks, all_sections=all_sections, all_notes=all_notes,
+                all_notebooks=all_notebooks, all_sections=all_sections, all_notes=all_notes,
                 single_note=single_note, current_notebook=current_notebook,
                 current_section=current_section, notebook_form=notebook_form,
                 section_form=section_form))
@@ -284,7 +284,7 @@ def notebook_view(notebook_id=None):
             current_section = Section.query.get_or_404(parent_section)
     all_notes = Note.query.filter_by(section_id=parent_section).order_by(Note.creation_date.desc()).all()
     all_sections = Section.query.filter_by(notebook_id=parent_notebook).order_by(Section.title).all()
-    notebooks = Notebook.query.all()
+    all_notebooks = Notebook.query.all()
     '''note button'''
     note_form = NotesForm()
     note_button_press = note_button(note_form, single_note, parent_notebook, parent_section)
@@ -320,7 +320,7 @@ def notebook_view(notebook_id=None):
         return notebook_button_press
     else:
         return (render_template('base.html', note_form=note_form,
-                notebooks=notebooks, all_sections=all_sections, all_notes=all_notes,
+                all_notebooks=all_notebooks, all_sections=all_sections, all_notes=all_notes,
                 single_note=single_note, current_notebook=current_notebook,
                 current_section=current_section, notebook_form=notebook_form,
                 section_form=section_form))
@@ -334,7 +334,7 @@ def new_note_view(parent_notebook, parent_section):
     '''get all all_sections from database'''
     current_section, parent_notebook, all_sections = get_all_sections(parent_section)
     '''get all notebooks from database'''
-    current_notebook, notebooks = get_all_notebooks(parent_notebook)
+    current_notebook, all_notebooks = get_all_notebooks(parent_notebook)
     '''note button'''
     note_form = NotesForm()
     single_note = None
@@ -362,7 +362,7 @@ def new_note_view(parent_notebook, parent_section):
         return notebook_button_press
     else:
         return (render_template('base.html', note_form=note_form,
-                notebooks=notebooks, all_sections=all_sections, all_notes=all_notes,
+                all_notebooks=all_notebooks, all_sections=all_sections, all_notes=all_notes,
                 current_notebook=current_notebook,
                 current_section=current_section, notebook_form=notebook_form,
                 section_form=section_form))
