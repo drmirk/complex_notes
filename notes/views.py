@@ -433,6 +433,7 @@ def only_notebook(notebook_id):
     all_sections = []
     for section in all_sections_models:
         temp = {}
+        temp['id'] = section.get_id()
         temp['title'] = section.get_title()
         all_sections.append(temp)
     return jsonify({'return': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes, 'all_sections': all_sections})
