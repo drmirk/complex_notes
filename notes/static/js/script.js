@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 /* AJAX to load all notes of a section & latest modified note of that section without completely refreshing page */
  $(document).ready(function(){
-    $('.sections').on('click', function (event) {
+    $('.all_sections_class').on('click', '.sections', function (event) {
         event.preventDefault();
         var section_id = $(this).attr('id');
         url = "/only_section/" + section_id;
@@ -102,6 +102,33 @@ $(document).ready(function(){
              url: url,
             method: 'GET'
          });
-         console.log(req);
+         req.done(function () {
+            // load latest modified note or in case of empty show nothing
+            var title = req.responseJSON['title'];
+            var note_body = req.responseJSON['note_body'];
+            var note_creation_date = req.responseJSON['note_creation_date'];
+            var note_modification_date = req.responseJSON['note_modification_date'];
+            $('#note_title').val(title);
+            $('#note_creation_date').val(note_creation_date[0]);
+            $('#note_modification_date').val(note_modification_date[0]);
+            CKEDITOR.instances.note_body.setData(note_body);
+            // clear all notes & section from previous notebook
+            $('.all_notes_class').empty();
+            $('.all_sections_class').empty();
+            var all_notes = req.responseJSON['all_notes']
+            var all_sections = req.responseJSON['all_sections']
+            // if notebook has any note, then load them
+            if (all_notes.length > 0) {
+                $(all_notes).each(function () {
+                    $('.all_notes_class').append("<div class='hover_choice notes' id=" + this['id'] + "><a href=/note/" + this['id'] + "><p class='note_title_gap'><strong>" + this['title'] + "</strong></p><p class='note_preview_gap horizontal_line'>" + this['preview'] + "</p></a></div>");
+                });
+            };
+            // if notebook has any section, then load them
+            if (all_sections.length > 0) {
+                $(all_sections).each(function () {
+                    $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                });
+            };
+         });
      });
 });
