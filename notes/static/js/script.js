@@ -96,12 +96,12 @@ $(document).ready(function(){
      $('.notebooks').on('click', function (event) {
          event.preventDefault();
          var notebook_id = $(this).attr('id');
-         var url = "/only/notebook/" + notebook_id;
+         var url = "/only_notebook/" + notebook_id;
          // get all sections of a notebook and latest modified note
          req = $.ajax({
              url: url,
             method: 'GET'
          });
-         console.log('SUCCESS');
+         console.log(req);
      });
 });

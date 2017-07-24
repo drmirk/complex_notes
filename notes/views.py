@@ -386,11 +386,11 @@ def only_section(section_id):
     single_note = Note.query.filter_by(section_id=section_id).order_by(Note.modification_date.desc()).first()
     all_notes = []
     for note in all_notes_models:
-        singles = {}
-        singles['id'] = note.get_id()
-        singles['title'] = note.get_title()
-        singles['preview'] = note.get_preview()
-        all_notes.append(singles)
+        temp = {}
+        temp['id'] = note.get_id()
+        temp['title'] = note.get_title()
+        temp['preview'] = note.get_preview()
+        all_notes.append(temp)
     if single_note is None:
         title = ''
         note_body = ''
@@ -403,3 +403,36 @@ def only_section(section_id):
         note_modification_date = single_note.get_modification_date()
     return jsonify({'result': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes})
 
+
+@app.route('/only_notebook/<int:notebook_id>')
+def only_notebook(notebook_id):
+    '''this function returns all sections of a notebook, latest modified note of that notebook and all sections'''
+    parent_notebook = notebook_id
+    single_note = Note.query.filter_by(notebook_id=parent_notebook).order_by(Note.modification_date.desc()).first()
+    if single_note is None:
+        title = ''
+        note_body = ''
+        note_creation_date = ''
+        note_modification_date = ''
+        parent_section = None
+    else:
+        title = single_note.get_title()
+        note_body = single_note.get_body()
+        note_creation_date = single_note.get_creation_date()
+        note_modification_date = single_note.get_modification_date()
+        parent_section = single_note.get_section_id()
+    all_notes_models = Note.query.filter_by(section_id=parent_section).order_by(Note.creation_date.desc()).all()
+    all_sections_models = Section.query.filter_by(notebook_id=parent_notebook).order_by(Section.title).all()
+    all_notes = []
+    for note in all_notes_models:
+        temp = {}
+        temp['id'] = note.get_id()
+        temp['title'] = note.get_title()
+        temp['preview'] = note.get_preview()
+        all_notes.append(temp)
+    all_sections = []
+    for section in all_sections_models:
+        temp = {}
+        temp['title'] = section.get_title()
+        all_sections.append(temp)
+    return jsonify({'return': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes, 'all_sections': all_sections})
