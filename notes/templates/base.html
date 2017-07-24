@@ -37,7 +37,7 @@
                         </form>
                     </div>-->
                     {% for notebook in all_notebooks %}
-                    <div class="hover_choice">
+                    <div class="hover_choice notebooks" id="{{ notebook.id }}">
                         <a href="{{ url_for('notebook_view', notebook_id=notebook.id) }}">
                             <p class="horizontal_line">{{ notebook.get_title() }}</p>
                         </a>

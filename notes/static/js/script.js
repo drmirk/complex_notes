@@ -89,3 +89,19 @@ $(document).ready(function(){
         });
 	});
 });
+
+
+/* AJAX to load all section of a notebook with all notes & latest modified note of that notebook without completely refreshing page */
+ $(document).ready(function(){
+     $('.notebooks').on('click', function (event) {
+         event.preventDefault();
+         var notebook_id = $(this).attr('id');
+         var url = "/only/notebook/" + notebook_id;
+         // get all sections of a notebook and latest modified note
+         req = $.ajax({
+             url: url,
+            method: 'GET'
+         });
+         console.log('SUCCESS');
+     });
+});
