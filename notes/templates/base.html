@@ -78,11 +78,21 @@
                     {{ note_form.csrf_token }}
                     <!--{{ note_form.note_new_btn(class="btn btn-primary btn-sm") }}
                     {{ note_form.note_save_btn(class="btn btn-success btn-sm") }}
-                    {{ note_form.note_delete_btn(class="btn btn-danger btn-sm") }}<br>-->
-                    <h1>{{ note_form.note_title(class="title") }}</h1>
-                    {{ note_form.note_creation_date }}<br>
-                    {{ note_form.note_modification_date }}<br>
-                    {{ note_form.note_body }}
+                    {{ note_form.note_delete_btn(class="btn btn-danger btn-sm") }}<div>-->
+                    <h1>{{ note_form.note_title(class="title border-top-0 border-right-0 border-left-0") }}</h1>
+                    <table class="small table-hover">
+                        <tbody>
+                            <tr>
+                                <td>Creation Date:</td>
+                                <td>{{ note_form.note_creation_date }}</td>
+                            </tr>
+                            <tr>
+                                <td>Modification Date:</td>
+                                <td>{{ note_form.note_modification_date }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {{ note_form.note_body(class="border-0") }}
                 </form>
             </div>
         </div>

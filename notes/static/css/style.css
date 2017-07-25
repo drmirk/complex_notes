@@ -49,7 +49,7 @@ body {
 }
 
 .vertical_line {
-    border-right: thin solid #e8eff9;
+    /* border-right: thin solid #e8eff9; */
     border-right: thin solid #e8eff9;
 }
 .viewport {
@@ -72,4 +72,8 @@ a {
 
 .hover_choice:hover {
     background-color: #727272;
+}
+
+h1 {
+    margin-bottom: 0 !important;
 }
