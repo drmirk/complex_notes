@@ -29,6 +29,9 @@ CKEDITOR.replace('note_body', {
     ],
 });
 
+/* If javascript is working, then new, save, delete buttons will be hidden */
+$('.hide_this').hide();
+
 /* AJAX to load note without completely refreshing page */
 $(document).ready(function(){
     $('.all_notes_class').on('click', '.notes', function (event) {
