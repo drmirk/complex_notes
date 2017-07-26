@@ -29,11 +29,14 @@ CKEDITOR.replace('note_body', {
     ],
 });
 
-/* If javascript is working, then new, save, delete buttons will be hidden */
-$('.hide_this').hide();
 
-/* AJAX to load note without completely refreshing page */
-$(document).ready(function(){
+
+
+$(document).ready(function () {
+    /* If javascript is working, then new, save, delete buttons will be hidden */
+    $('.hide_this').hide();
+
+    /* AJAX to load note without completely refreshing page */
     $('.all_notes_class').on('click', '.notes', function (event) {
         event.preventDefault();
         var note_id = $(this).attr('id');
@@ -54,11 +57,9 @@ $(document).ready(function(){
             CKEDITOR.instances.note_body.setData(note_body);
             /* $('#main_form').fadeIn(500); */
         });
-	});
-});
+    });
 
-/* AJAX to load all notes of a section & latest modified note of that section without completely refreshing page */
- $(document).ready(function(){
+    /* AJAX to load all notes of a section & latest modified note of that section without completely refreshing page */
     $('.all_sections_class').on('click', '.sections', function (event) {
         event.preventDefault();
         var section_id = $(this).attr('id');
@@ -90,22 +91,19 @@ $(document).ready(function(){
             }
 
         });
-	});
-});
+    });
 
-
-/* AJAX to load all section of a notebook with all notes & latest modified note of that notebook without completely refreshing page */
- $(document).ready(function(){
-     $('.notebooks').on('click', function (event) {
-         event.preventDefault();
-         var notebook_id = $(this).attr('id');
-         var url = "/only_notebook/" + notebook_id;
-         // get all sections of a notebook and latest modified note
-         req = $.ajax({
-             url: url,
+    /* AJAX to load all section of a notebook with all notes & latest modified note of that notebook without completely refreshing page */
+        $('.notebooks').on('click', function (event) {
+            event.preventDefault();
+            var notebook_id = $(this).attr('id');
+            var url = "/only_notebook/" + notebook_id;
+            // get all sections of a notebook and latest modified note
+            req = $.ajax({
+                url: url,
             method: 'GET'
-         });
-         req.done(function () {
+            });
+            req.done(function () {
             // load latest modified note or in case of empty show nothing
             var title = req.responseJSON['title'];
             var note_body = req.responseJSON['note_body'];
@@ -132,6 +130,7 @@ $(document).ready(function(){
                     $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
                 });
             };
-         });
-     });
+            });
+        });
+
 });
