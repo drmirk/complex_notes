@@ -51,23 +51,29 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="col-xl-3 viewport line_height vertical_line all_sections_class">
-                    <div class="hide_this">
-                        <form method="POST" id="section">
-                            {{ section_form.section_new_title }}<br>
-                            {{ section_form.section_new_btn(class="btn btn-primary btn-sm") }}<br>
-                            {{ section_form.section_current_title }}<br>
-                            {{ section_form.section_save_btn(class="btn btn-success btn-sm") }}
-                            {{ section_form.section_delete_btn(class="btn btn-danger btn-sm") }}
-                        </form>
+                <div class="col-xl-3">
+                    <div>
+                        <i class="fa fa-plus fa-2x button_center"></i>
+                        <p class="button_center">New Section</p>
                     </div>
-                    {% for section in all_sections %}
-                    <div class="hover_choice sections" id="{{ section.id }}">
-                        <a href="{{ url_for('section_view', section_id=section.id)  }}">
-                            <p class="horizontal_line">{{ section.get_title() }}</p>
-                        </a>
+                    <div class="viewport line_height vertical_line all_sections_class">
+                        <div class="hide_this">
+                            <form method="POST" id="section">
+                                {{ section_form.section_new_title }}<br>
+                                {{ section_form.section_new_btn(class="btn btn-primary btn-sm") }}<br>
+                                {{ section_form.section_current_title }}<br>
+                                {{ section_form.section_save_btn(class="btn btn-success btn-sm") }}
+                                {{ section_form.section_delete_btn(class="btn btn-danger btn-sm") }}
+                            </form>
+                        </div>
+                        {% for section in all_sections %}
+                        <div class="hover_choice sections" id="{{ section.id }}">
+                            <a href="{{ url_for('section_view', section_id=section.id)  }}">
+                                <p class="horizontal_line">{{ section.get_title() }}</p>
+                            </a>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
                 <div class="col-xl-5 viewport line_height vertical_line all_notes_class">
                     {% for note in all_notes %}
