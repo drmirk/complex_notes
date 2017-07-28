@@ -82,3 +82,8 @@ h1 {
     height: 75vh;
     width: 100%;
 }
+
+.button_center {
+    text-align: center;
+    width: 100%;
+}
