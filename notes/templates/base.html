@@ -75,15 +75,21 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="col-xl-5 viewport line_height vertical_line all_notes_class">
-                    {% for note in all_notes %}
-                    <div class="hover_choice notes" id="{{ note.id }}">
-                        <a href="{{ url_for('note_view', note_id=note.id) }}">
-                            <p class="note_title_gap"><strong>{{ note.get_title() }}</strong></p>
-                            <p class="note_preview_gap horizontal_line">{{ note.get_preview() | safe }}</p>
-                        </a>
+                <div class="col-xl-5">
+                    <div>
+                        <i class="fa fa-plus fa-2x button_center"></i>
+                        <p class="button_center">New Note</p>
                     </div>
-                    {% endfor %}
+                    <div class="viewport line_height vertical_line all_notes_class">
+                        {% for note in all_notes %}
+                        <div class="hover_choice notes" id="{{ note.id }}">
+                            <a href="{{ url_for('note_view', note_id=note.id) }}">
+                                <p class="note_title_gap"><strong>{{ note.get_title() }}</strong></p>
+                                <p class="note_preview_gap horizontal_line">{{ note.get_preview() | safe }}</p>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
             <div class="col-xl-7 viewport">
