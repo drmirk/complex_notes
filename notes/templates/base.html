@@ -28,9 +28,31 @@
                     TEST
                 </div>
                 <div class="col-xl-3">
-                    <div>
+                    <div data-toggle="modal" data-target="#new_notebook_modal">
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Notebook</p>
+                    </div>
+                    <div class="modal fade" id="new_notebook_modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Create a New Notebook</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                <div class="form-group">
+                                    <label for="new_notebook_title" class="form-control-label">Notebook Name:</label>
+                                    <input type="text" class="form-control" id="new_notebook_title">
+                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="new_notebook_title_btn">Save Notebook</button>
+                            </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="viewport line_height vertical_line">
                         <div class="hide_this">
