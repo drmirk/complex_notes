@@ -437,3 +437,21 @@ def only_notebook(notebook_id):
         temp['title'] = section.get_title()
         all_sections.append(temp)
     return jsonify({'return': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes, 'all_sections': all_sections})
+
+
+@app.route('/new_notebook/<new_notebook_title>')
+def new_notebook(new_notebook_title):
+        if new_notebook_title.strip():
+            notebook = Notebook()
+            notebook.set_title(new_notebook_title)
+            db.session.add(notebook)
+            db.session.commit()
+            new_notebook_id = notebook.get_id()
+            all_notebooks_models = Notebook.query.all()
+            all_notebooks = []
+            for notebook in all_notebooks_models:
+                temp = {}
+                temp['id'] = notebook.get_id()
+                temp['title'] = notebook.get_title()
+                all_notebooks.append(temp)
+            return jsonify({'return': 'success', 'new_notebook_id': new_notebook_id, 'all_notebooks': all_notebooks})
