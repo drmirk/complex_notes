@@ -94,43 +94,59 @@ $(document).ready(function () {
     });
 
     /* AJAX to load all section of a notebook with all notes & latest modified note of that notebook without completely refreshing page */
-        $('.notebooks').on('click', function (event) {
-            event.preventDefault();
-            var notebook_id = $(this).attr('id');
-            var url = "/only_notebook/" + notebook_id;
-            // get all sections of a notebook and latest modified note
-            req = $.ajax({
-                url: url,
+    $('.notebooks').on('click', function (event) {
+        event.preventDefault();
+        var notebook_id = $(this).attr('id');
+        var url = "/only_notebook/" + notebook_id;
+        // get all sections of a notebook and latest modified note
+        req = $.ajax({
+            url: url,
             method: 'GET'
-            });
-            req.done(function () {
-            // load latest modified note or in case of empty show nothing
-            var title = req.responseJSON['title'];
-            var note_body = req.responseJSON['note_body'];
-            var note_creation_date = req.responseJSON['note_creation_date'];
-            var note_modification_date = req.responseJSON['note_modification_date'];
-            $('#note_title').val(title);
-            $('#note_creation_date').val(note_creation_date[0]);
-            $('#note_modification_date').val(note_modification_date[0]);
-            CKEDITOR.instances.note_body.setData(note_body);
-            // clear all notes & section from previous notebook
-            $('.all_notes_class').empty();
-            $('.all_sections_class').empty();
-            var all_notes = req.responseJSON['all_notes']
-            var all_sections = req.responseJSON['all_sections']
-            // if notebook has any note, then load them
-            if (all_notes.length > 0) {
-                $(all_notes).each(function () {
-                    $('.all_notes_class').append("<div class='hover_choice notes' id=" + this['id'] + "><a href=/note/" + this['id'] + "><p class='note_title_gap'><strong>" + this['title'] + "</strong></p><p class='note_preview_gap horizontal_line'>" + this['preview'] + "</p></a></div>");
-                });
-            };
-            // if notebook has any section, then load them
-            if (all_sections.length > 0) {
-                $(all_sections).each(function () {
-                    $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
-                });
-            };
-            });
         });
+        req.done(function () {
+        // load latest modified note or in case of empty show nothing
+        var title = req.responseJSON['title'];
+        var note_body = req.responseJSON['note_body'];
+        var note_creation_date = req.responseJSON['note_creation_date'];
+        var note_modification_date = req.responseJSON['note_modification_date'];
+        $('#note_title').val(title);
+        $('#note_creation_date').val(note_creation_date[0]);
+        $('#note_modification_date').val(note_modification_date[0]);
+        CKEDITOR.instances.note_body.setData(note_body);
+        // clear all notes & section from previous notebook
+        $('.all_notes_class').empty();
+        $('.all_sections_class').empty();
+        var all_notes = req.responseJSON['all_notes']
+        var all_sections = req.responseJSON['all_sections']
+        // if notebook has any note, then load them
+        if (all_notes.length > 0) {
+            $(all_notes).each(function () {
+                $('.all_notes_class').append("<div class='hover_choice notes' id=" + this['id'] + "><a href=/note/" + this['id'] + "><p class='note_title_gap'><strong>" + this['title'] + "</strong></p><p class='note_preview_gap horizontal_line'>" + this['preview'] + "</p></a></div>");
+            });
+        };
+        // if notebook has any section, then load them
+        if (all_sections.length > 0) {
+            $(all_sections).each(function () {
+                $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+            });
+        };
+        });
+    });
+
+    /* create a new notebook and redirect to that newly created notebook */
+    $('#new_notebook_modal').on('click', '#new_notebook_title_btn', function () {
+        var new_notebook_title = $('#new_notebook_title')['0'].value;
+        var url = "/new_notebook/" + new_notebook_title;
+        req = $.ajax({
+            url: url,
+            method: 'GET'
+        });
+        console.log(new_notebook_title);
+        /* closes the modal, and empties the input field */
+        $('.modal').modal('toggle');
+        $('#new_notebook_title')['0'].value = '';
+    });
+
+
 
 });
