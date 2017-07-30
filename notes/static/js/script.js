@@ -127,7 +127,7 @@ $(document).ready(function () {
         // if notebook has any section, then load them
         if (all_sections.length > 0) {
             $(all_sections).each(function () {
-                $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/section/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
             });
         };
         });
