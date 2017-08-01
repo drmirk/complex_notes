@@ -154,7 +154,7 @@ $(document).ready(function () {
             $('.all_notebooks_class > .notebooks#' + new_notebook_id).click();
         });
         /* closes the modal, and empties the input field */
-        $('.modal').modal('toggle');
+        $('#new_notebook_modal').modal('toggle');
         $('#new_notebook_title')['0'].value = '';
     });
 
