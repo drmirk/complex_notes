@@ -76,10 +76,34 @@
                     </div>
                 </div>
                 <div class="col-xl-3">
-                    <div>
+                    <div data-toggle="modal" data-target="#new_section_modal">
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Section</p>
                     </div>
+                    <!-- new section modal -->
+                    <div class="modal fade" id="new_section_modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Create a New Section</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                <div class="form-group">
+                                    <label for="new_section_title" class="form-control-label">Section Name:</label>
+                                    <input type="text" class="form-control" id="new_section_title">
+                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="new_section_title_btn">Save Section</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of new section modal -->
                     <div class="viewport line_height vertical_line all_sections_class">
                         <div class="hide_this">
                             <form method="POST" id="section">
