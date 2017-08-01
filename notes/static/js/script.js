@@ -94,7 +94,7 @@ $(document).ready(function () {
     });
 
     /* AJAX to load all section of a notebook with all notes & latest modified note of that notebook without completely refreshing page */
-    $('.notebooks').on('click', function (event) {
+    $('.all_notebooks_class').on('click', '.notebooks', function (event) {
         event.preventDefault();
         var notebook_id = $(this).attr('id');
         var url = "/only_notebook/" + notebook_id;
@@ -141,7 +141,18 @@ $(document).ready(function () {
             url: url,
             method: 'GET'
         });
-        console.log(new_notebook_title);
+        // console.log(req);
+/*         req.done(function () {
+            var new_notebook_id = req.responseJSON['new_notebook_id'];
+            $('.all_notebooks_class').empty();
+            var all_notebooks = req.responseJSON['all_notebooks'];
+            if (all_notebooks.length > 0) {
+                $(all_notebooks).each(function () {
+                    $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                });
+            };
+            $('.all_notebooks_class > .notebooks#' + new_notebook_id).click();
+        }); */
         /* closes the modal, and empties the input field */
         $('.modal').modal('toggle');
         $('#new_notebook_title')['0'].value = '';
