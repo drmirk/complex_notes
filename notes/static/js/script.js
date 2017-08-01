@@ -142,7 +142,7 @@ $(document).ready(function () {
             method: 'GET'
         });
         // console.log(req);
-/*         req.done(function () {
+        req.done(function () {
             var new_notebook_id = req.responseJSON['new_notebook_id'];
             $('.all_notebooks_class').empty();
             var all_notebooks = req.responseJSON['all_notebooks'];
@@ -152,7 +152,7 @@ $(document).ready(function () {
                 });
             };
             $('.all_notebooks_class > .notebooks#' + new_notebook_id).click();
-        }); */
+        });
         /* closes the modal, and empties the input field */
         $('.modal').modal('toggle');
         $('#new_notebook_title')['0'].value = '';
