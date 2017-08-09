@@ -455,3 +455,24 @@ def new_notebook(new_notebook_title):
                 temp['title'] = notebook.get_title()
                 all_notebooks.append(temp)
             return jsonify({'return': 'success', 'new_notebook_id': new_notebook_id, 'all_notebooks': all_notebooks})
+
+
+@app.route('/new_section', methods=['POST'])
+def new_section():
+    new_section_title = request.form['new_section_title']
+    parent_notebook = request.form['current_notebook']
+    if new_section_title.strip():
+        section = Section()
+        section.set_title(new_section_title)
+        section.set_notebook_id(parent_notebook)
+        db.session.add(section)
+        db.session.commit()
+        new_section_id = section.get_id()
+        all_sections_models = Section.query.filter_by(notebook_id=parent_notebook).order_by(Section.title).all()
+        all_sections = []
+        for sec in all_sections_models:
+            temp = {}
+            temp['id'] = sec.get_id()
+            temp['title'] = sec.get_title()
+            all_sections.append(temp)
+        return jsonify({'return': 'success', 'new_section_id': new_section_id, 'all_sections': all_sections})
