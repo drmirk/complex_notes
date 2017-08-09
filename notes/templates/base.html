@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="col-xl-5">
-                    <div>
+                    <div id="new_note_btn">
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Note</p>
                     </div>
@@ -180,6 +180,11 @@
             var current_section = 0;
         {% else %}
             var current_section = "{{ current_section.get_id() }}";
+        {% endif %}
+        {% if single_note is none %}
+            var current_note = 0;
+        {% else %}
+            var current_note = "{{ single_note.get_id() }}";
         {% endif %}
     </script>
 </body>
