@@ -167,10 +167,20 @@ $(document).ready(function () {
             method: 'POST',
             data: {'current_notebook': current_notebook, 'new_section_title': new_section_title}
         });
-        console.log(req);
+        req.done(function () {
+            var new_section_id = req.responseJSON['new_section_id'];
+            $('.all_sections_class').empty();
+            var all_sections = req.responseJSON['all_sections'];
+            if (all_sections.length > 0) {
+                $(all_sections).each(function () {
+                    $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/section" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                });
+            };
+            $('.all_sections_class > .sections#' + new_section_id).click();
+        });
         /* closes the modal, and empties the input field */
         $('#new_section_modal').modal('toggle');
-        $('#new_section_modal')['0'].value = '';
+        $('#new_section_title')['0'].value = '';
     });
 
 
