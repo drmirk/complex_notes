@@ -97,6 +97,7 @@ $(document).ready(function () {
     $('.all_notebooks_class').on('click', '.notebooks', function (event) {
         event.preventDefault();
         var notebook_id = $(this).attr('id');
+        current_notebook = notebook_id;
         var url = "/only_notebook/" + notebook_id;
         // get all sections of a notebook and latest modified note
         req = $.ajax({
