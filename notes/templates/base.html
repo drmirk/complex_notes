@@ -170,9 +170,17 @@
     <script src="{{ url_for('static', filename='js/tether.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }} "></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-     <script>
-        var current_notebook = "{{ current_notebook.get_id() }}";
-        var current_section = "{{ current_section.get_id() }}";
+    <script type="text/javascript">
+        {% if current_notebook is none %}
+            var current_notebook = 0;
+        {% else %}
+            var current_notebook = "{{ current_notebook.get_id() }}";
+        {% endif %}
+        {% if current_section is none %}
+            var current_section = 0;
+        {% else %}
+            var current_section = "{{ current_section.get_id() }}";
+        {% endif %}
     </script>
 </body>
 
