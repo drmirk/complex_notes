@@ -372,11 +372,12 @@ def new_note_view(parent_notebook, parent_section):
 def only_note(note_id):
     '''this function returns only a single note'''
     single_note = Note.query.get_or_404(note_id)
+    note_id = single_note.get_id()
     title = single_note.get_title()
     note_body = single_note.get_body()
     note_creation_date = single_note.get_creation_date()
     note_modification_date = single_note.get_modification_date()
-    return jsonify({'result': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date})
+    return jsonify({'result': 'success', 'note_id': note_id, 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date})
 
 
 @app.route('/only_section/<int:section_id>')
@@ -392,16 +393,18 @@ def only_section(section_id):
         temp['preview'] = note.get_preview()
         all_notes.append(temp)
     if single_note is None:
+        note_id = 0
         title = ''
         note_body = ''
         note_creation_date = ''
         note_modification_date = ''
     else:
+        note_id = single_note.get_id()
         title = single_note.get_title()
         note_body = single_note.get_body()
         note_creation_date = single_note.get_creation_date()
         note_modification_date = single_note.get_modification_date()
-    return jsonify({'result': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes})
+    return jsonify({'result': 'success', 'note_id': note_id, 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes})
 
 
 @app.route('/only_notebook/<int:notebook_id>')
@@ -410,12 +413,14 @@ def only_notebook(notebook_id):
     parent_notebook = notebook_id
     single_note = Note.query.filter_by(notebook_id=parent_notebook).order_by(Note.modification_date.desc()).first()
     if single_note is None:
+        note_id = 0
         title = ''
         note_body = ''
         note_creation_date = ''
         note_modification_date = ''
         parent_section = None
     else:
+        note_id = single_note.get_id()
         title = single_note.get_title()
         note_body = single_note.get_body()
         note_creation_date = single_note.get_creation_date()
@@ -436,7 +441,7 @@ def only_notebook(notebook_id):
         temp['id'] = section.get_id()
         temp['title'] = section.get_title()
         all_sections.append(temp)
-    return jsonify({'return': 'success', 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes, 'all_sections': all_sections})
+    return jsonify({'return': 'success', 'note_id': note_id, 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes, 'all_sections': all_sections})
 
 
 @app.route('/new_notebook/<new_notebook_title>')

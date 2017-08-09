@@ -47,6 +47,8 @@ $(document).ready(function () {
         });
         req.done(function () {
             /* $('#main_form').fadeOut(100); */
+            var note_id = req.responseJSON['note_id'];
+            current_note = note_id;
             var title = req.responseJSON['title'];
             var note_body = req.responseJSON['note_body'];
             var note_creation_date = req.responseJSON['note_creation_date'];
@@ -71,6 +73,8 @@ $(document).ready(function () {
         });
         req.done(function () {
             // load latest modified note or in case of empty show nothing
+            var note_id = req.responseJSON['note_id'];
+            current_note = note_id;
             var title = req.responseJSON['title'];
             var note_body = req.responseJSON['note_body'];
             var note_creation_date = req.responseJSON['note_creation_date'];
@@ -106,6 +110,8 @@ $(document).ready(function () {
         });
         req.done(function () {
         // load latest modified note or in case of empty show nothing
+        var note_id = req.responseJSON['note_id'];
+        current_note = note_id;
         var title = req.responseJSON['title'];
         var note_body = req.responseJSON['note_body'];
         var note_creation_date = req.responseJSON['note_creation_date'];
