@@ -158,6 +158,21 @@ $(document).ready(function () {
         $('#new_notebook_title')['0'].value = '';
     });
 
+    /* create a new section and redirect to that newly created section */
+    $('#new_section_modal').on('click', '#new_section_title_btn', function () {
+        var new_section_title = $('#new_section_title')['0'].value;
+        req = $.ajax({
+            url: '/new_section',
+            method: 'POST',
+            data: {'current_notebook': current_notebook, 'new_section_title': new_section_title}
+        });
+        console.log(req);
+        /* closes the modal, and empties the input field */
+        $('#new_section_modal').modal('toggle');
+        $('#new_section_modal')['0'].value = '';
+    });
+
+
 
 
 });
