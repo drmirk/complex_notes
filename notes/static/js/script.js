@@ -190,6 +190,27 @@ $(document).ready(function () {
     });
 
 
+    function save_note() {
+        url = '/save_note';
+        var note_id = current_note;
+        var note_title = $('#note_title').val();
+        var note_body = CKEDITOR.instances.note_body.getData();
+        var note_creation_date = $('#note_creation_date').val();
+        var note_modification_date = $('#note_modification_date').val();
+        req = $.ajax({
+            url: url,
+            method: 'POST',
+            data: {
+                'note_id': note_id,
+                'note_title': note_title,
+                'note_body': note_body,
+                'note_creation_date': note_creation_date,
+                'note_modification_date': note_modification_date
+            }
 
+        });
+    };
+
+    save_note();
 
 });
