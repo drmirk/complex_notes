@@ -363,7 +363,7 @@ def new_note_view(parent_notebook, parent_section):
     else:
         return (render_template('base.html', note_form=note_form,
                 all_notebooks=all_notebooks, all_sections=all_sections, all_notes=all_notes,
-                current_notebook=current_notebook,
+                single_note=single_note, current_notebook=current_notebook,
                 current_section=current_section, notebook_form=notebook_form,
                 section_form=section_form))
 
@@ -481,3 +481,22 @@ def new_section():
             temp['title'] = sec.get_title()
             all_sections.append(temp)
         return jsonify({'return': 'success', 'new_section_id': new_section_id, 'all_sections': all_sections})
+
+
+@app.route('/save_note', methods=['POST'])
+def save_note():
+    note_id = request.form['note_id']
+    note_title = request.form['note_title'].strip()
+    note_body = request.form['note_body'].strip()
+    note_creation_date = request.form['note_creation_date']
+    note_modification_date = request.form['note_modification_date']
+    single_note = Note.query.get_or_404(note_id)
+    single_note.set_title(note_title)
+    single_note.set_preview(form=None, auto_save_js=True, note_body_js=note_body)
+    single_note.set_body(form=None, auto_save_js=True, note_body_js=note_body)
+    single_note.set_creation_date(form=None, auto_save_js=True, note_creation_date_js=note_creation_date)
+    single_note.set_modification_date()
+    db.session.add(single_note)
+    db.session.commit()
+    return jsonify({'return': 'success'})
+
