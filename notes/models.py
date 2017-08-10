@@ -110,18 +110,24 @@ class Note(db.Model):
     '''takes form object
     then takes the note_body and removes all html tags
     stores first 300 character'''
-    def set_preview(self, form):
+    def set_preview(self, form, auto_save_js=False, note_body_js=None):
         '''set preview of a note'''
-        preview = remove_tags(form.note_body.data)
+        if auto_save_js:
+            preview = remove_tags(note_body_js)
+        else:
+            preview = remove_tags(form.note_body.data)
         self.preview = preview[:300]
 
     def get_body(self):
         '''returns main body of a note'''
         return self.body
 
-    def set_body(self, form):
+    def set_body(self, form, auto_save_js=False, note_body_js=None):
         '''sets body of a note'''
-        self.body = form.note_body.data
+        if auto_save_js:
+            self.body = note_body_js
+        else:
+            self.body = form.note_body.data
 
     '''wtform datetime only accepts a list
     containing only 1 item in a specific format
@@ -137,10 +143,13 @@ class Note(db.Model):
     '''wtform datetime returns datetime like a normal datetime form field, in a list
     using raw_data we are getting the list
     and formatting that accordingly to store in database'''
-    def set_creation_date(self, form):
+    def set_creation_date(self, form, auto_save_js=False, note_creation_date_js=None):
         '''gets creation time in a html format,
         & formats and sets that in db'''
-        time = form.note_creation_date.raw_data[0].replace('T', ' ')
+        if auto_save_js:
+            time = note_creation_date_js.replace('T', ' ')
+        else:
+            time = form.note_creation_date.raw_data[0].replace('T', ' ')
         self.creation_date = datetime.strptime(time, '%Y-%m-%d %H:%M')
 
     '''wtform datetime only accepts a list
