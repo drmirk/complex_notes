@@ -189,28 +189,31 @@ $(document).ready(function () {
         $('#new_section_title')['0'].value = '';
     });
 
-
+    /* automatically saves a note */
     function save_note() {
-        url = '/save_note';
         var note_id = current_note;
+        var parent_notebook = current_notebook;
+        var parent_section = current_section;
         var note_title = $('#note_title').val();
         var note_body = CKEDITOR.instances.note_body.getData();
         var note_creation_date = $('#note_creation_date').val();
         var note_modification_date = $('#note_modification_date').val();
+        var data = {
+            'note_id': note_id,
+            'note_title': note_title,
+            'note_body': note_body,
+            'note_creation_date': note_creation_date,
+            'note_modification_date': note_modification_date
+        };
         req = $.ajax({
-            url: url,
+            url: '/save_note',
             method: 'POST',
-            data: {
-                'note_id': note_id,
-                'note_title': note_title,
-                'note_body': note_body,
-                'note_creation_date': note_creation_date,
-                'note_modification_date': note_modification_date
-            }
+            data: data
 
         });
     };
 
-    save_note();
+    /* automatically saves notes after 30 seconds interval */
+    window.setInterval(save_note, 30000)
 
 });
