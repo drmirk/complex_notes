@@ -36,6 +36,22 @@ $(document).ready(function () {
     /* If javascript is working, then new, save, delete buttons will be hidden */
     $('.hide_this').hide();
 
+    /* from json loads a note */
+    function load_note() {
+        /* $('#main_form').fadeOut(100); */
+        var note_id = req.responseJSON['note_id'];
+        current_note = note_id;
+        var title = req.responseJSON['title'];
+        var note_body = req.responseJSON['note_body'];
+        var note_creation_date = req.responseJSON['note_creation_date'];
+        var note_modification_date = req.responseJSON['note_modification_date'];
+        $('#note_title').val(title);
+        $('#note_creation_date').val(note_creation_date[0]);
+        $('#note_modification_date').val(note_modification_date[0]);
+        CKEDITOR.instances.note_body.setData(note_body);
+        /* $('#main_form').fadeIn(500); */
+    }
+
     /* AJAX to load note without completely refreshing page */
     $('.all_notes_class').on('click', '.notes', function (event) {
         event.preventDefault();
@@ -45,20 +61,7 @@ $(document).ready(function () {
             method: 'POST',
             data: {'note_id': note_id}
         });
-        req.done(function () {
-            /* $('#main_form').fadeOut(100); */
-            var note_id = req.responseJSON['note_id'];
-            current_note = note_id;
-            var title = req.responseJSON['title'];
-            var note_body = req.responseJSON['note_body'];
-            var note_creation_date = req.responseJSON['note_creation_date'];
-            var note_modification_date = req.responseJSON['note_modification_date'];
-            $('#note_title').val(title);
-            $('#note_creation_date').val(note_creation_date[0]);
-            $('#note_modification_date').val(note_modification_date[0]);
-            CKEDITOR.instances.note_body.setData(note_body);
-            /* $('#main_form').fadeIn(500); */
-        });
+        req.done(load_note);
     });
 
     /* AJAX to load all notes of a section & latest modified note of that section without completely refreshing page */
@@ -73,16 +76,7 @@ $(document).ready(function () {
         });
         req.done(function () {
             // load latest modified note or in case of empty show nothing
-            var note_id = req.responseJSON['note_id'];
-            current_note = note_id;
-            var title = req.responseJSON['title'];
-            var note_body = req.responseJSON['note_body'];
-            var note_creation_date = req.responseJSON['note_creation_date'];
-            var note_modification_date = req.responseJSON['note_modification_date'];
-            $('#note_title').val(title);
-            $('#note_creation_date').val(note_creation_date[0]);
-            $('#note_modification_date').val(note_modification_date[0]);
-            CKEDITOR.instances.note_body.setData(note_body);
+            load_note();
             // console.log(req.responseJSON["all_notes"][0]["title"]);
             // clear all notes from previous section
             $('.all_notes_class').empty();
@@ -110,16 +104,7 @@ $(document).ready(function () {
         });
         req.done(function () {
         // load latest modified note or in case of empty show nothing
-        var note_id = req.responseJSON['note_id'];
-        current_note = note_id;
-        var title = req.responseJSON['title'];
-        var note_body = req.responseJSON['note_body'];
-        var note_creation_date = req.responseJSON['note_creation_date'];
-        var note_modification_date = req.responseJSON['note_modification_date'];
-        $('#note_title').val(title);
-        $('#note_creation_date').val(note_creation_date[0]);
-        $('#note_modification_date').val(note_modification_date[0]);
-        CKEDITOR.instances.note_body.setData(note_body);
+        load_note();
         // clear all notes & section from previous notebook
         $('.all_notes_class').empty();
         $('.all_sections_class').empty();
