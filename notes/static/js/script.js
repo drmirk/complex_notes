@@ -36,6 +36,14 @@ $(document).ready(function () {
     /* If javascript is working, then new, save, delete buttons will be hidden */
     $('.hide_this').hide();
 
+    /* convert Date object to a timestamp & add the timezone offset */
+    var time_zone_offset = new Date().getTimezoneOffset() * 60000;
+
+    /* Then convert time_zone_offset back to a date object, then run the toISOString(), then remove all seconds and miliseconds */
+    function get_current_time() {
+        return ((new Date(Date.now() - time_zone_offset)).toISOString().split('.')[0].slice(0,-3));
+    };
+
     /* from json loads a note */
     function load_note() {
         /* $('#main_form').fadeOut(100); */
@@ -175,6 +183,17 @@ $(document).ready(function () {
         $('#new_section_title')['0'].value = '';
     });
 
+    /* create a new note */
+    $('#new_note_btn').on('click', function () {
+        current_note = 0;
+        current_time = get_current_time();
+        $('#note_title').val('');
+        $('#note_creation_date').val(current_time);
+        $('#note_modification_date').val(current_time);
+        CKEDITOR.instances.note_body.setData('');
+
+    });
+
     /* automatically saves a note */
     function save_note() {
         var note_id = current_note;
@@ -200,6 +219,6 @@ $(document).ready(function () {
     };
 
     /* automatically saves notes after 30 seconds interval */
-    window.setInterval(save_note, 30000)
+    //window.setInterval(save_note, 30000)
 
 });
