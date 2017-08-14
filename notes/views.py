@@ -368,9 +368,10 @@ def new_note_view(parent_notebook, parent_section):
                 section_form=section_form))
 
 
-@app.route('/only_note/<int:note_id>')
-def only_note(note_id):
+@app.route('/only_note', methods=['POST'])
+def only_note():
     '''this function returns only a single note'''
+    note_id = request.form['note_id']
     single_note = Note.query.get_or_404(note_id)
     note_id = single_note.get_id()
     title = single_note.get_title()
@@ -380,9 +381,10 @@ def only_note(note_id):
     return jsonify({'result': 'success', 'note_id': note_id, 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date})
 
 
-@app.route('/only_section/<int:section_id>')
-def only_section(section_id):
+@app.route('/only_section', methods=['POST'])
+def only_section():
     '''this function returns all notes of a section and latest modified note'''
+    section_id = request.form['section_id']
     all_notes_models = Note.query.filter_by(section_id=section_id).order_by(Note.creation_date.desc()).all()
     single_note = Note.query.filter_by(section_id=section_id).order_by(Note.modification_date.desc()).first()
     all_notes = []
@@ -407,10 +409,10 @@ def only_section(section_id):
     return jsonify({'result': 'success', 'note_id': note_id, 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes})
 
 
-@app.route('/only_notebook/<int:notebook_id>')
-def only_notebook(notebook_id):
+@app.route('/only_notebook', methods=['POST'])
+def only_notebook():
     '''this function returns all sections of a notebook, latest modified note of that notebook and all sections'''
-    parent_notebook = notebook_id
+    parent_notebook = request.form['notebook_id']
     single_note = Note.query.filter_by(notebook_id=parent_notebook).order_by(Note.modification_date.desc()).first()
     if single_note is None:
         note_id = 0
@@ -444,22 +446,23 @@ def only_notebook(notebook_id):
     return jsonify({'return': 'success', 'note_id': note_id, 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes, 'all_sections': all_sections})
 
 
-@app.route('/new_notebook/<new_notebook_title>')
-def new_notebook(new_notebook_title):
-        if new_notebook_title.strip():
-            notebook = Notebook()
-            notebook.set_title(new_notebook_title)
-            db.session.add(notebook)
-            db.session.commit()
-            new_notebook_id = notebook.get_id()
-            all_notebooks_models = Notebook.query.all()
-            all_notebooks = []
-            for notebook in all_notebooks_models:
-                temp = {}
-                temp['id'] = notebook.get_id()
-                temp['title'] = notebook.get_title()
-                all_notebooks.append(temp)
-            return jsonify({'return': 'success', 'new_notebook_id': new_notebook_id, 'all_notebooks': all_notebooks})
+@app.route('/new_notebook', methods=['POST'])
+def new_notebook():
+    new_notebook_title = request.form['new_notebook_title']
+    if new_notebook_title.strip():
+        notebook = Notebook()
+        notebook.set_title(new_notebook_title)
+        db.session.add(notebook)
+        db.session.commit()
+        new_notebook_id = notebook.get_id()
+        all_notebooks_models = Notebook.query.all()
+        all_notebooks = []
+        for notebook in all_notebooks_models:
+            temp = {}
+            temp['id'] = notebook.get_id()
+            temp['title'] = notebook.get_title()
+            all_notebooks.append(temp)
+        return jsonify({'return': 'success', 'new_notebook_id': new_notebook_id, 'all_notebooks': all_notebooks})
 
 
 @app.route('/new_section', methods=['POST'])

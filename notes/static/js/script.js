@@ -40,10 +40,10 @@ $(document).ready(function () {
     $('.all_notes_class').on('click', '.notes', function (event) {
         event.preventDefault();
         var note_id = $(this).attr('id');
-        url = "/only_note/" + note_id
         req = $.ajax({
-            url: url,
-            method: 'GET'
+            url: "/only_note",
+            method: 'POST',
+            data: {'note_id': note_id}
         });
         req.done(function () {
             /* $('#main_form').fadeOut(100); */
@@ -65,11 +65,11 @@ $(document).ready(function () {
     $('.all_sections_class').on('click', '.sections', function (event) {
         event.preventDefault();
         var section_id = $(this).attr('id');
-        url = "/only_section/" + section_id;
         // gets all notes of a section and latest modified note
         req = $.ajax({
-            url: url,
-            method: 'GET'
+            url: "/only_section",
+            method: 'POST',
+            data: {'section_id': section_id}
         });
         req.done(function () {
             // load latest modified note or in case of empty show nothing
@@ -102,11 +102,11 @@ $(document).ready(function () {
         event.preventDefault();
         var notebook_id = $(this).attr('id');
         current_notebook = notebook_id;
-        var url = "/only_notebook/" + notebook_id;
         // get all sections of a notebook and latest modified note
         req = $.ajax({
-            url: url,
-            method: 'GET'
+            url: "/only_notebook",
+            method: 'POST',
+            data: {'notebook_id': notebook_id}
         });
         req.done(function () {
         // load latest modified note or in case of empty show nothing
@@ -145,8 +145,9 @@ $(document).ready(function () {
         var new_notebook_title = $('#new_notebook_title')['0'].value;
         var url = "/new_notebook/" + new_notebook_title;
         req = $.ajax({
-            url: url,
-            method: 'GET'
+            url: "/new_notebook",
+            method: 'POST',
+            data: {'new_notebook_title': new_notebook_title}
         });
         // console.log(req);
         req.done(function () {
