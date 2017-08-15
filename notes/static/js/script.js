@@ -165,6 +165,12 @@ $(document).ready(function () {
         if (current_notebook != -100) {
             $('#new_section_modal').modal('toggle');
         }
+        else {
+            $('#create_notebook_first_modal').modal('toggle');
+            setTimeout(function(){
+                $('#create_notebook_first_modal').modal('toggle')
+              }, 1000);
+        }
     });
 
     /* create a new section and redirect to that newly created section */
