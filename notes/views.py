@@ -516,6 +516,5 @@ def save_note():
     db.session.add(single_note)
     db.session.commit()
     note_id = single_note.get_id()
-    print(note_id)
     return jsonify({'return': 'success', 'note_id': note_id})
 

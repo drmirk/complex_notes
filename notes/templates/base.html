@@ -172,17 +172,17 @@
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script type="text/javascript">
         {% if current_notebook is none %}
-            var current_notebook = 0;
+            var current_notebook = -100;
         {% else %}
             var current_notebook = "{{ current_notebook.get_id() }}";
         {% endif %}
         {% if current_section is none %}
-            var current_section = 0;
+            var current_section = -100;
         {% else %}
             var current_section = "{{ current_section.get_id() }}";
         {% endif %}
         {% if single_note is none %}
-            var current_note = 0;
+            var current_note = -100;
         {% else %}
             var current_note = "{{ single_note.get_id() }}";
         {% endif %}

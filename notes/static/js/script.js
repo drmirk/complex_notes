@@ -152,6 +152,7 @@ $(document).ready(function () {
                     $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
                 });
             };
+            current_notebook = new_notebook_id;
             $('.all_notebooks_class > .notebooks#' + new_notebook_id).click();
         });
         /* closes the modal, and empties the input field */
@@ -219,12 +220,11 @@ $(document).ready(function () {
 
         });
         req.done(function () {
-            current_note = req.responseJSON['note_id'],
-            console.log(current_note)
+            current_note = req.responseJSON['note_id']
         });
     };
 
     /* automatically saves notes after 30 seconds interval */
-    window.setInterval(save_note, 3000)
+    // window.setInterval(save_note, 3000)
 
 });
