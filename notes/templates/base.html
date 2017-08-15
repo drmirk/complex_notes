@@ -140,6 +140,18 @@
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Note</p>
                     </div>
+                    <!-- create section first modal -->
+                    <div class="modal fade" id="create_section_first_modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Create a Section First</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of create notebook first modal -->
                     <div class="viewport line_height vertical_line all_notes_class">
                         {% for note in all_notes %}
                         <div class="hover_choice notes" id="{{ note.id }}">

@@ -163,7 +163,7 @@ $(document).ready(function () {
     });
 
     /* if no notebook, section won't be created */
-    $('#new_section_btn').on('click', function (event) {
+    $('#new_section_btn').on('click', function () {
         if (current_notebook != -100) {
             $('#new_section_modal').modal('toggle');
         }
@@ -201,13 +201,20 @@ $(document).ready(function () {
 
     /* create a new note */
     $('#new_note_btn').on('click', function () {
-        current_note = 0;
-        current_time = get_current_time();
-        $('#note_title').val('');
-        $('#note_creation_date').val(current_time);
-        $('#note_modification_date').val(current_time);
-        CKEDITOR.instances.note_body.setData('');
-
+        if (current_section != -100) {
+            current_note = 0;
+            current_time = get_current_time();
+            $('#note_title').val('');
+            $('#note_creation_date').val(current_time);
+            $('#note_modification_date').val(current_time);
+            CKEDITOR.instances.note_body.setData('');
+        }
+        else {
+            $('#create_section_first_modal').modal('toggle');
+            setTimeout(function(){
+                $('#create_section_first_modal').modal('toggle')
+              }, 1000);
+        }
     });
 
     /* automatically saves a note */
