@@ -491,19 +491,31 @@ def new_section():
 @app.route('/save_note', methods=['POST'])
 def save_note():
     note_id = int(request.form['note_id'])
-    if note_id > 0:
-        note_title = request.form['note_title'].strip()
-        note_body = request.form['note_body'].strip()
-        note_creation_date = request.form['note_creation_date']
-        note_modification_date = request.form['note_modification_date']
+    parent_notebook = int(request.form['parent_notebook'])
+    parent_section = int(request.form['parent_section'])
+    note_title = request.form['note_title'].strip()
+    note_body = request.form['note_body'].strip()
+    note_creation_date = request.form['note_creation_date']
+    note_modification_date = request.form['note_modification_date']
+    # if no note is loaded, don't need to save anything
+    if note_id == -100:
+        return jsonify({'return': 'Nothing to save', 'note_id': note_id})
+    elif note_id == 0:
+        # if a new note is created, then create a note model first
+        single_note = Note()
+        single_note.set_section_id(parent_section)
+        single_note.set_notebook_id(parent_notebook)
+    elif note_id > 0:
+        # if an old note is loaded, then get that note
         single_note = Note.query.get_or_404(note_id)
-        single_note.set_title(note_title)
-        single_note.set_preview(form=None, auto_save_js=True, note_body_js=note_body)
-        single_note.set_body(form=None, auto_save_js=True, note_body_js=note_body)
-        single_note.set_creation_date(form=None, auto_save_js=True, note_creation_date_js=note_creation_date)
-        single_note.set_modification_date()
-        db.session.add(single_note)
-        db.session.commit()
-        return jsonify({'return': 'success'})
-    elif note_id == -100:
-        return jsonify({'return': 'Nothing to save'})
+    single_note.set_title(note_title)
+    single_note.set_preview(form=None, auto_save_js=True, note_body_js=note_body)
+    single_note.set_body(form=None, auto_save_js=True, note_body_js=note_body)
+    single_note.set_creation_date(form=None, auto_save_js=True, note_creation_date_js=note_creation_date)
+    single_note.set_modification_date()
+    db.session.add(single_note)
+    db.session.commit()
+    note_id = single_note.get_id()
+    print(note_id)
+    return jsonify({'return': 'success', 'note_id': note_id})
+

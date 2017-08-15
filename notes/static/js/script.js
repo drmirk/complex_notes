@@ -208,7 +208,9 @@ $(document).ready(function () {
             'note_title': note_title,
             'note_body': note_body,
             'note_creation_date': note_creation_date,
-            'note_modification_date': note_modification_date
+            'note_modification_date': note_modification_date,
+            'parent_notebook': parent_notebook,
+            'parent_section': parent_section
         };
         req = $.ajax({
             url: '/save_note',
@@ -216,9 +218,13 @@ $(document).ready(function () {
             data: data
 
         });
+        req.done(function () {
+            current_note = req.responseJSON['note_id'],
+            console.log(current_note)
+        });
     };
 
     /* automatically saves notes after 30 seconds interval */
-    //window.setInterval(save_note, 30000)
+    window.setInterval(save_note, 3000)
 
 });
