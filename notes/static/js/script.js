@@ -160,6 +160,13 @@ $(document).ready(function () {
         $('#new_notebook_title')['0'].value = '';
     });
 
+    /* if no notebook, section won't be created */
+    $('#new_section_btn').on('click', function (event) {
+        if (current_notebook != -100) {
+            $('#new_section_modal').modal('toggle');
+        }
+    });
+
     /* create a new section and redirect to that newly created section */
     $('#new_section_modal').on('click', '#new_section_title_btn', function () {
         var new_section_title = $('#new_section_title')['0'].value;
@@ -225,6 +232,6 @@ $(document).ready(function () {
     };
 
     /* automatically saves notes after 30 seconds interval */
-    // window.setInterval(save_note, 3000)
+    window.setInterval(save_note, 30000)
 
 });
