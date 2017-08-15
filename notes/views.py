@@ -422,7 +422,11 @@ def only_notebook():
         note_body = ''
         note_creation_date = ''
         note_modification_date = ''
-        parent_section = None
+        parent_section = Section.query.filter_by(notebook_id=parent_notebook).order_by(Section.id.desc()).first()
+        if parent_section is None:
+            parent_section = -100
+        else:
+            parent_section = parent_section.get_id()
     else:
         note_id = single_note.get_id()
         title = single_note.get_title()
@@ -445,7 +449,7 @@ def only_notebook():
         temp['id'] = section.get_id()
         temp['title'] = section.get_title()
         all_sections.append(temp)
-    return jsonify({'return': 'success', 'note_id': note_id, 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes, 'all_sections': all_sections})
+    return jsonify({'return': 'success', 'note_id': note_id, 'title': title, 'note_body': note_body, 'note_creation_date': note_creation_date, 'note_modification_date': note_modification_date, 'all_notes': all_notes, 'all_sections': all_sections, 'current_section': parent_section})
 
 
 @app.route('/new_notebook', methods=['POST'])

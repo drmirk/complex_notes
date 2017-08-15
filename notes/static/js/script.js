@@ -76,6 +76,7 @@ $(document).ready(function () {
     $('.all_sections_class').on('click', '.sections', function (event) {
         event.preventDefault();
         var section_id = $(this).attr('id');
+        current_section = section_id;
         // gets all notes of a section and latest modified note
         req = $.ajax({
             url: "/only_section",
@@ -112,7 +113,8 @@ $(document).ready(function () {
         });
         req.done(function () {
         // load latest modified note or in case of empty show nothing
-        load_note();
+            load_note();
+            current_section = req.responseJSON['current_section'];
         // clear all notes & section from previous notebook
         $('.all_notes_class').empty();
         $('.all_sections_class').empty();
