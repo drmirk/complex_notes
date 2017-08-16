@@ -142,29 +142,39 @@ $(document).ready(function () {
 
     /* create a new notebook and redirect to that newly created notebook */
     $('#new_notebook_modal').on('click', '#new_notebook_title_btn', function () {
-        var new_notebook_title = $('#new_notebook_title')['0'].value;
-        var url = "/new_notebook/" + new_notebook_title;
-        req = $.ajax({
-            url: "/new_notebook",
-            method: 'POST',
-            data: {'new_notebook_title': new_notebook_title}
-        });
-        // console.log(req);
-        req.done(function () {
-            var new_notebook_id = req.responseJSON['new_notebook_id'];
-            $('.all_notebooks_class').empty();
-            var all_notebooks = req.responseJSON['all_notebooks'];
-            if (all_notebooks.length > 0) {
-                $(all_notebooks).each(function () {
-                    $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
-                });
-            };
-            current_notebook = new_notebook_id;
-            $('.all_notebooks_class > .notebooks#' + new_notebook_id).click();
-        });
-        /* closes the modal, and empties the input field */
-        $('#new_notebook_modal').modal('toggle');
-        $('#new_notebook_title')['0'].value = '';
+        var new_notebook_title = $('#new_notebook_title')['0'].value.trim();
+        console.log(new_notebook_title);
+        if (new_notebook_title) {
+            req = $.ajax({
+                url: "/new_notebook",
+                method: 'POST',
+                data: {'new_notebook_title': new_notebook_title}
+            });
+            // console.log(req);
+            req.done(function () {
+                var new_notebook_id = req.responseJSON['new_notebook_id'];
+                $('.all_notebooks_class').empty();
+                var all_notebooks = req.responseJSON['all_notebooks'];
+                if (all_notebooks.length > 0) {
+                    $(all_notebooks).each(function () {
+                        $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                    });
+                };
+                current_notebook = new_notebook_id;
+                $('.all_notebooks_class > .notebooks#' + new_notebook_id).click();
+            });
+            /* closes the modal, and empties the input field */
+            $('#new_notebook_modal').modal('toggle');
+            $('#new_notebook_title')['0'].value = '';
+        }
+        else {
+            $('#new_notebook_modal').modal('toggle');
+            $('#notebook_title_cant_be_empty_modal').modal('toggle');
+            setTimeout(function(){
+                $('#notebook_title_cant_be_empty_modal').modal('toggle')
+            }, 1000);
+        }
+
     });
 
     /* if no notebook, section won't be created */
