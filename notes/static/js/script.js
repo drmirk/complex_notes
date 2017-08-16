@@ -248,31 +248,41 @@ $(document).ready(function () {
         var note_id = current_note;
         var parent_notebook = current_notebook;
         var parent_section = current_section;
-        var note_title = $('#note_title').val();
+        var note_title = $('#note_title').val().trim();
         var note_body = CKEDITOR.instances.note_body.getData();
         var note_creation_date = $('#note_creation_date').val();
         var note_modification_date = $('#note_modification_date').val();
-        var data = {
-            'note_id': note_id,
-            'note_title': note_title,
-            'note_body': note_body,
-            'note_creation_date': note_creation_date,
-            'note_modification_date': note_modification_date,
-            'parent_notebook': parent_notebook,
-            'parent_section': parent_section
-        };
-        req = $.ajax({
-            url: '/save_note',
-            method: 'POST',
-            data: data
 
-        });
-        req.done(function () {
-            current_note = req.responseJSON['note_id']
-        });
+        /* both note title and body can't be empty */
+        if (note_title || note_body) {
+            /* if note title is empty, then first 100 char of body */
+            if (!note_title) {
+                note_title = note_body.substring(0, 100);
+            };
+
+            var data = {
+                'note_id': note_id,
+                'note_title': note_title,
+                'note_body': note_body,
+                'note_creation_date': note_creation_date,
+                'note_modification_date': note_modification_date,
+                'parent_notebook': parent_notebook,
+                'parent_section': parent_section
+            };
+
+            req = $.ajax({
+                url: '/save_note',
+                method: 'POST',
+                data: data
+
+            });
+            req.done(function () {
+                current_note = req.responseJSON['note_id']
+            });
+        };
     };
 
     /* automatically saves notes after 30 seconds interval */
-    window.setInterval(save_note, 30000)
+    window.setInterval(save_note, 30000);
 
 });
