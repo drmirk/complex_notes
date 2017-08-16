@@ -33,6 +33,12 @@ CKEDITOR.replace('note_body', {
 
 
 $(document).ready(function () {
+
+    /* this prevents browser default context menu */
+    $(document).on("contextmenu",function(){
+        return false;
+    });
+
     /* If javascript is working, then new, save, delete buttons will be hidden */
     $('.hide_this').hide();
 
