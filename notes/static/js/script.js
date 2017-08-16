@@ -143,7 +143,6 @@ $(document).ready(function () {
     /* create a new notebook and redirect to that newly created notebook */
     $('#new_notebook_modal').on('click', '#new_notebook_title_btn', function () {
         var new_notebook_title = $('#new_notebook_title')['0'].value.trim();
-        console.log(new_notebook_title);
         if (new_notebook_title) {
             req = $.ajax({
                 url: "/new_notebook",
@@ -169,6 +168,7 @@ $(document).ready(function () {
         }
         else {
             $('#new_notebook_modal').modal('toggle');
+            $('#new_notebook_title')['0'].value = '';
             $('#notebook_title_cant_be_empty_modal').modal('toggle');
             setTimeout(function(){
                 $('#notebook_title_cant_be_empty_modal').modal('toggle')
@@ -192,26 +192,37 @@ $(document).ready(function () {
 
     /* create a new section and redirect to that newly created section */
     $('#new_section_modal').on('click', '#new_section_title_btn', function () {
-        var new_section_title = $('#new_section_title')['0'].value;
-        req = $.ajax({
-            url: '/new_section',
-            method: 'POST',
-            data: {'current_notebook': current_notebook, 'new_section_title': new_section_title}
-        });
-        req.done(function () {
-            var new_section_id = req.responseJSON['new_section_id'];
-            $('.all_sections_class').empty();
-            var all_sections = req.responseJSON['all_sections'];
-            if (all_sections.length > 0) {
-                $(all_sections).each(function () {
-                    $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/section" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
-                });
-            };
-            $('.all_sections_class > .sections#' + new_section_id).click();
-        });
-        /* closes the modal, and empties the input field */
-        $('#new_section_modal').modal('toggle');
-        $('#new_section_title')['0'].value = '';
+        var new_section_title = $('#new_section_title')['0'].value.trim();
+        if (new_section_title) {
+            req = $.ajax({
+                url: '/new_section',
+                method: 'POST',
+                data: {'current_notebook': current_notebook, 'new_section_title': new_section_title}
+            });
+            req.done(function () {
+                var new_section_id = req.responseJSON['new_section_id'];
+                $('.all_sections_class').empty();
+                var all_sections = req.responseJSON['all_sections'];
+                if (all_sections.length > 0) {
+                    $(all_sections).each(function () {
+                        $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/section" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                    });
+                };
+                $('.all_sections_class > .sections#' + new_section_id).click();
+            });
+            /* closes the modal, and empties the input field */
+            $('#new_section_modal').modal('toggle');
+            $('#new_section_title')['0'].value = '';
+        }
+        else {
+            $('#new_section_modal').modal('toggle');
+            $('#new_section_title')['0'].value = '';
+            $('#section_title_cant_be_empty_modal').modal('toggle');
+            setTimeout(function(){
+                $('#section_title_cant_be_empty_modal').modal('toggle')
+            }, 1000);
+        }
+
     });
 
     /* create a new note */
