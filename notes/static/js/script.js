@@ -135,6 +135,11 @@ $(document).ready(function () {
         });
     });
 
+    /* create a new notebook */
+    $('#new_notebook_btn').on('click', function () {
+        $('#new_notebook_modal').modal('toggle');
+    });
+
     /* create a new notebook and redirect to that newly created notebook */
     $('#new_notebook_modal').on('click', '#new_notebook_title_btn', function () {
         var new_notebook_title = $('#new_notebook_title')['0'].value;
