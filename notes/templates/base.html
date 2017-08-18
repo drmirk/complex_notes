@@ -28,7 +28,7 @@
                     TEST
                 </div>
                 <div class="col-xl-3">
-                    <div id="new_notebook_btn">
+                    <div id="new_notebook_btn" class="js_btn hide">
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Notebook</p>
                     </div>
@@ -69,7 +69,7 @@
                     </div>
                     <!-- end of new notebook modal -->
                     <div class="viewport line_height vertical_line all_notebooks_class">
-                        <div class="hide_this">
+                        <div class="no_js_btn">
                             <form method="POST" id="notebook">
                                 {{ notebook_form.notebook_new_title }}<br>
                                 {{ notebook_form.notebook_new_btn(class="btn btn-primary btn-sm") }}<br>
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3">
-                    <div id="new_section_btn">
+                    <div id="new_section_btn" class="js_btn hide">
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Section</p>
                     </div>
@@ -141,7 +141,7 @@
                     </div>
                     <!-- end of new section modal -->
                     <div class="viewport line_height vertical_line all_sections_class">
-                        <div class="hide_this">
+                        <div class="no_js_btn">
                             <form method="POST" id="section">
                                 {{ section_form.section_new_title }}<br>
                                 {{ section_form.section_new_btn(class="btn btn-primary btn-sm") }}<br>
@@ -160,7 +160,7 @@
                     </div>
                 </div>
                 <div class="col-xl-5">
-                    <div id="new_note_btn">
+                    <div id="new_note_btn" class="js_btn hide">
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Note</p>
                     </div>
@@ -191,7 +191,7 @@
             <div class="col-xl-7 viewport">
                 <form method="POST" id="main_form">
                     {{ note_form.csrf_token }}
-                    <div class="hide_this">
+                    <div class="no_js_btn">
                         {{ note_form.note_new_btn(class="btn btn-primary btn-sm") }}
                         {{ note_form.note_save_btn(class="btn btn-success btn-sm") }}
                         {{ note_form.note_delete_btn(class="btn btn-danger btn-sm") }}

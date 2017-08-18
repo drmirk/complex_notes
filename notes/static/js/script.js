@@ -39,8 +39,11 @@ $(document).ready(function () {
         return false;
     });
 
-    /* If javascript is working, then new, save, delete buttons will be hidden */
-    $('.hide_this').hide();
+    /* show js only buttons and hide nonjs only buttons */
+    $('.js_btn').removeClass('hide');
+    $('.no_js_btn').addClass('hide');
+
+
 
     /* convert Date object to a timestamp & add the timezone offset */
     var time_zone_offset = new Date().getTimezoneOffset() * 60000;
