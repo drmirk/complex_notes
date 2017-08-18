@@ -12,6 +12,102 @@
 </head>
 
 <body>
+    <!-- notebook can't be empty modal -->
+    <div class="modal fade" id="notebook_title_cant_be_empty_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Notebook Title Can't Be Empty</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of notebook can't be empty modal -->
+    <!-- new notebook modal -->
+    <div class="modal fade" id="new_notebook_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create a New Notebook</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="new_notebook_title" class="form-control-label">Notebook Name:</label>
+                            <input type="text" class="form-control" id="new_notebook_title">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="new_notebook_title_btn">Save Notebook</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of new notebook modal -->
+    <!-- create notebook first modal -->
+    <div class="modal fade" id="create_notebook_first_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create a Notebook First</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of create notebook first modal -->
+    <!-- section can't be empty modal -->
+    <div class="modal fade" id="section_title_cant_be_empty_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Section Title Can't Be Empty</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of section can't be empty modal -->
+    <!-- new section modal -->
+    <div class="modal fade" id="new_section_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create a New Section</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="new_section_title" class="form-control-label">Section Name:</label>
+                            <input type="text" class="form-control" id="new_section_title">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="new_section_title_btn">Save Section</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of new section modal -->
+    <!-- create section first modal -->
+    <div class="modal fade" id="create_section_first_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create a Section First</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of create notebook first modal -->
     <div class="container-fluid">
         <div>
             {% with messages = get_flashed_messages() %}
@@ -32,42 +128,6 @@
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Notebook</p>
                     </div>
-                    <!-- notebook can't be empty modal -->
-                    <div class="modal fade" id="notebook_title_cant_be_empty_modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Notebook Title Can't Be Empty</h5>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end of notebook can't be empty modal -->
-                    <!-- new notebook modal -->
-                    <div class="modal fade" id="new_notebook_modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Create a New Notebook</h5>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                <div class="form-group">
-                                    <label for="new_notebook_title" class="form-control-label">Notebook Name:</label>
-                                    <input type="text" class="form-control" id="new_notebook_title">
-                                </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="new_notebook_title_btn">Save Notebook</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end of new notebook modal -->
                     <div class="viewport line_height vertical_line all_notebooks_class">
                         <div class="no_js_btn">
                             <form method="POST" id="notebook">
@@ -92,54 +152,6 @@
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Section</p>
                     </div>
-                    <!-- create notebook first modal -->
-                    <div class="modal fade" id="create_notebook_first_modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Create a Notebook First</h5>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end of create notebook first modal -->
-                    <!-- section can't be empty modal -->
-                    <div class="modal fade" id="section_title_cant_be_empty_modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Section Title Can't Be Empty</h5>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end of section can't be empty modal -->
-                    <!-- new section modal -->
-                    <div class="modal fade" id="new_section_modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Create a New Section</h5>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                <div class="form-group">
-                                    <label for="new_section_title" class="form-control-label">Section Name:</label>
-                                    <input type="text" class="form-control" id="new_section_title">
-                                </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="new_section_title_btn">Save Section</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end of new section modal -->
                     <div class="viewport line_height vertical_line all_sections_class">
                         <div class="no_js_btn">
                             <form method="POST" id="section">
@@ -164,18 +176,6 @@
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Note</p>
                     </div>
-                    <!-- create section first modal -->
-                    <div class="modal fade" id="create_section_first_modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Create a Section First</h5>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end of create notebook first modal -->
                     <div class="viewport line_height vertical_line all_notes_class">
                         {% for note in all_notes %}
                         <div class="hover_choice notes" id="{{ note.id }}">

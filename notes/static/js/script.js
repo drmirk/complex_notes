@@ -217,6 +217,7 @@ $(document).ready(function () {
                         $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/section" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
                     });
                 };
+                current_section = new_section_id;
                 $('.all_sections_class > .sections#' + new_section_id).click();
             });
             /* closes the modal, and empties the input field */
