@@ -12,6 +12,113 @@
 </head>
 
 <body>
+    <div class="container-fluid">
+        <div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div class="row no-gutters">
+            <div class="row col-xl-5 no-gutters">
+                <div class="col-xl-1 no-gutters vertical_line">
+                    TEST
+                </div>
+                <div class="col-xl-3">
+                    <div id="new_notebook_btn" class="js_btn hide">
+                        <i class="fa fa-plus fa-2x button_center"></i>
+                        <p class="button_center">New Notebook</p>
+                    </div>
+                    <div class="viewport line_height vertical_line all_notebooks_class">
+                        <div class="no_js_btn">
+                            <form method="POST" id="notebook">
+                                {{ notebook_form.notebook_new_title }}<br>
+                                {{ notebook_form.notebook_new_btn(class="btn btn-primary btn-sm") }}<br>
+                                {{ notebook_form.notebook_current_title }}<br>
+                                {{ notebook_form.notebook_save_btn(class="btn btn-success btn-sm") }}
+                                {{ notebook_form.notebook_delete_btn(class="btn btn-danger btn-sm") }}
+                            </form>
+                        </div>
+                        {% for notebook in all_notebooks %}
+                        <div class="hover_choice notebooks" id="{{ notebook.id }}">
+                            <a href="{{ url_for('notebook_view', notebook_id=notebook.id) }}">
+                                <p class="horizontal_line">{{ notebook.get_title() }}</p>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-xl-3">
+                    <div id="new_section_btn" class="js_btn hide">
+                        <i class="fa fa-plus fa-2x button_center"></i>
+                        <p class="button_center">New Section</p>
+                    </div>
+                    <div class="viewport line_height vertical_line all_sections_class">
+                        <div class="no_js_btn">
+                            <form method="POST" id="section">
+                                {{ section_form.section_new_title }}<br>
+                                {{ section_form.section_new_btn(class="btn btn-primary btn-sm") }}<br>
+                                {{ section_form.section_current_title }}<br>
+                                {{ section_form.section_save_btn(class="btn btn-success btn-sm") }}
+                                {{ section_form.section_delete_btn(class="btn btn-danger btn-sm") }}
+                            </form>
+                        </div>
+                        {% for section in all_sections %}
+                        <div class="hover_choice sections" id="{{ section.id }}">
+                            <a href="{{ url_for('section_view', section_id=section.id)  }}">
+                                <p class="horizontal_line">{{ section.get_title() }}</p>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-xl-5">
+                    <div id="new_note_btn" class="js_btn hide">
+                        <i class="fa fa-plus fa-2x button_center"></i>
+                        <p class="button_center">New Note</p>
+                    </div>
+                    <div class="viewport line_height vertical_line all_notes_class">
+                        {% for note in all_notes %}
+                        <div class="hover_choice notes" id="{{ note.id }}">
+                            <a href="{{ url_for('note_view', note_id=note.id) }}">
+                                <p class="note_title_gap"><strong>{{ note.get_title() }}</strong></p>
+                                <p class="note_preview_gap horizontal_line">{{ note.get_preview() | safe }}</p>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7 viewport">
+                <form method="POST" id="main_form">
+                    {{ note_form.csrf_token }}
+                    <div class="no_js_btn">
+                        {{ note_form.note_new_btn(class="btn btn-primary btn-sm") }}
+                        {{ note_form.note_save_btn(class="btn btn-success btn-sm") }}
+                        {{ note_form.note_delete_btn(class="btn btn-danger btn-sm") }}
+                    </div>
+                    <h1>{{ note_form.note_title(class="title border-top-0 border-right-0 border-left-0") }}</h1>
+                    <table class="small table-hover">
+                        <tbody>
+                            <tr>
+                                <td>Creation Date:</td>
+                                <td>{{ note_form.note_creation_date }}</td>
+                            </tr>
+                            <tr>
+                                <td>Modification Date:</td>
+                                <td>{{ note_form.note_modification_date }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {{ note_form.note_body(class="border=0 noJS_textarea") }}
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- notebook can't be empty modal -->
     <div class="modal fade" id="notebook_title_cant_be_empty_modal">
         <div class="modal-dialog">
@@ -124,112 +231,7 @@
     </div>
     <!-- end of context menu -->
 
-    <div class="container-fluid">
-        <div>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        {{ message }}
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
-        <div class="row no-gutters">
-            <div class="row col-xl-5 no-gutters">
-                <div class="col-xl-1 no-gutters vertical_line">
-                    TEST
-                </div>
-                <div class="col-xl-3">
-                    <div id="new_notebook_btn" class="js_btn hide">
-                        <i class="fa fa-plus fa-2x button_center"></i>
-                        <p class="button_center">New Notebook</p>
-                    </div>
-                    <div class="viewport line_height vertical_line all_notebooks_class">
-                        <div class="no_js_btn">
-                            <form method="POST" id="notebook">
-                                {{ notebook_form.notebook_new_title }}<br>
-                                {{ notebook_form.notebook_new_btn(class="btn btn-primary btn-sm") }}<br>
-                                {{ notebook_form.notebook_current_title }}<br>
-                                {{ notebook_form.notebook_save_btn(class="btn btn-success btn-sm") }}
-                                {{ notebook_form.notebook_delete_btn(class="btn btn-danger btn-sm") }}
-                            </form>
-                        </div>
-                        {% for notebook in all_notebooks %}
-                        <div class="hover_choice notebooks" id="{{ notebook.id }}">
-                            <a href="{{ url_for('notebook_view', notebook_id=notebook.id) }}">
-                                <p class="horizontal_line">{{ notebook.get_title() }}</p>
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="col-xl-3">
-                    <div id="new_section_btn" class="js_btn hide">
-                        <i class="fa fa-plus fa-2x button_center"></i>
-                        <p class="button_center">New Section</p>
-                    </div>
-                    <div class="viewport line_height vertical_line all_sections_class">
-                        <div class="no_js_btn">
-                            <form method="POST" id="section">
-                                {{ section_form.section_new_title }}<br>
-                                {{ section_form.section_new_btn(class="btn btn-primary btn-sm") }}<br>
-                                {{ section_form.section_current_title }}<br>
-                                {{ section_form.section_save_btn(class="btn btn-success btn-sm") }}
-                                {{ section_form.section_delete_btn(class="btn btn-danger btn-sm") }}
-                            </form>
-                        </div>
-                        {% for section in all_sections %}
-                        <div class="hover_choice sections" id="{{ section.id }}">
-                            <a href="{{ url_for('section_view', section_id=section.id)  }}">
-                                <p class="horizontal_line">{{ section.get_title() }}</p>
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="col-xl-5">
-                    <div id="new_note_btn" class="js_btn hide">
-                        <i class="fa fa-plus fa-2x button_center"></i>
-                        <p class="button_center">New Note</p>
-                    </div>
-                    <div class="viewport line_height vertical_line all_notes_class">
-                        {% for note in all_notes %}
-                        <div class="hover_choice notes" id="{{ note.id }}">
-                            <a href="{{ url_for('note_view', note_id=note.id) }}">
-                                <p class="note_title_gap"><strong>{{ note.get_title() }}</strong></p>
-                                <p class="note_preview_gap horizontal_line">{{ note.get_preview() | safe }}</p>
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 viewport">
-                <form method="POST" id="main_form">
-                    {{ note_form.csrf_token }}
-                    <div class="no_js_btn">
-                        {{ note_form.note_new_btn(class="btn btn-primary btn-sm") }}
-                        {{ note_form.note_save_btn(class="btn btn-success btn-sm") }}
-                        {{ note_form.note_delete_btn(class="btn btn-danger btn-sm") }}
-                    </div>
-                    <h1>{{ note_form.note_title(class="title border-top-0 border-right-0 border-left-0") }}</h1>
-                    <table class="small table-hover">
-                        <tbody>
-                            <tr>
-                                <td>Creation Date:</td>
-                                <td>{{ note_form.note_creation_date }}</td>
-                            </tr>
-                            <tr>
-                                <td>Modification Date:</td>
-                                <td>{{ note_form.note_modification_date }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    {{ note_form.note_body(class="border=0 noJS_textarea") }}
-                </form>
-            </div>
-        </div>
-    </div>
+    <!-- all necessary scripts -->
     <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/tether.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }} "></script>
