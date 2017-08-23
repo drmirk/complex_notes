@@ -310,4 +310,16 @@ $(document).ready(function () {
     window.setInterval(save_note, 30000);
 
 
+    /* executing this function shows app context menu */
+    function show_context_menu(event) {
+        $('.context_menu').css({
+            'display': 'block',
+            'left': event.pageX,
+            'top': event.pageY
+        });
+    };
+
+
+
+
 });
