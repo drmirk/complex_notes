@@ -326,4 +326,13 @@ $(document).ready(function () {
     };
 
 
+    /* app context menu for each section */
+    $('.all_sections_class').on('contextmenu', '.sections', function (event) {
+        show_context_menu(event);
+        window.onclick = hide_context_menu;
+        var note_id = $(this).attr('id');
+        console.log(note_id);
+    });
+
+
 });
