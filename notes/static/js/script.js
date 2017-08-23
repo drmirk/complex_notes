@@ -34,26 +34,28 @@ CKEDITOR.replace('note_body', {
 
 $(document).ready(function () {
 
-    /* this prevents browser default context menu */
+    /* prevent browser default context menu */
     $(document).on("contextmenu",function(){
         return false;
     });
+
 
     /* show js only buttons and hide nonjs only buttons */
     $('.js_btn').removeClass('hide');
     $('.no_js_btn').addClass('hide');
 
 
-
     /* convert Date object to a timestamp & add the timezone offset */
     var time_zone_offset = new Date().getTimezoneOffset() * 60000;
 
-    /* Then convert time_zone_offset back to a date object, then run the toISOString(), then remove all seconds and miliseconds */
+
+    /* convert time_zone_offset back to a date object, then run the toISOString(), then remove all seconds and miliseconds */
     function get_current_time() {
         return ((new Date(Date.now() - time_zone_offset)).toISOString().split('.')[0].slice(0,-3));
     };
 
-    /* from json loads a note */
+
+    /* from a returning ajax request's json, loads a note */
     function load_note() {
         /* $('#main_form').fadeOut(100); */
         var note_id = req.responseJSON['note_id'];
@@ -67,7 +69,8 @@ $(document).ready(function () {
         $('#note_modification_date').val(note_modification_date[0]);
         CKEDITOR.instances.note_body.setData(note_body);
         /* $('#main_form').fadeIn(500); */
-    }
+    };
+
 
     /* AJAX to load note without completely refreshing page */
     $('.all_notes_class').on('click', '.notes', function (event) {
@@ -81,6 +84,7 @@ $(document).ready(function () {
         req.done(load_note);
     });
 
+
     /* AJAX to load all notes of a section & latest modified note of that section without completely refreshing page */
     $('.all_sections_class').on('click', '.sections', function (event) {
         event.preventDefault();
@@ -93,7 +97,7 @@ $(document).ready(function () {
             data: {'section_id': section_id}
         });
         req.done(function () {
-            // load latest modified note or in case of empty show nothing
+            // load latest modified note or in case of empty, shows nothing
             load_note();
             // console.log(req.responseJSON["all_notes"][0]["title"]);
             // clear all notes from previous section
@@ -104,10 +108,10 @@ $(document).ready(function () {
                 $(all_notes).each(function () {
                     $('.all_notes_class').append("<div class='hover_choice notes' id=" + this['id'] + "><a href=/note/" + this['id'] + "><p class='note_title_gap'><strong>" + this['title'] + "</strong></p><p class='note_preview_gap horizontal_line'>" + this['preview'] + "</p></a></div>");
                 });
-            }
-
+            };
         });
     });
+
 
     /* AJAX to load all section of a notebook with all notes & latest modified note of that notebook without completely refreshing page */
     $('.all_notebooks_class').on('click', '.notebooks', function (event) {
@@ -121,37 +125,41 @@ $(document).ready(function () {
             data: {'notebook_id': notebook_id}
         });
         req.done(function () {
-        // load latest modified note or in case of empty show nothing
+            // load latest modified note or in case of empty show nothing
             load_note();
             current_section = req.responseJSON['current_section'];
-        // clear all notes & section from previous notebook
-        $('.all_notes_class').empty();
-        $('.all_sections_class').empty();
-        var all_notes = req.responseJSON['all_notes']
-        var all_sections = req.responseJSON['all_sections']
-        // if notebook has any note, then load them
-        if (all_notes.length > 0) {
-            $(all_notes).each(function () {
-                $('.all_notes_class').append("<div class='hover_choice notes' id=" + this['id'] + "><a href=/note/" + this['id'] + "><p class='note_title_gap'><strong>" + this['title'] + "</strong></p><p class='note_preview_gap horizontal_line'>" + this['preview'] + "</p></a></div>");
-            });
-        };
-        // if notebook has any section, then load them
-        if (all_sections.length > 0) {
-            $(all_sections).each(function () {
-                $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/section/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
-            });
-        };
+            // clear all notes & section from previous notebook
+            $('.all_notes_class').empty();
+            $('.all_sections_class').empty();
+            var all_notes = req.responseJSON['all_notes']
+            var all_sections = req.responseJSON['all_sections']
+            // if notebook has any note, then load them
+            if (all_notes.length > 0) {
+                $(all_notes).each(function () {
+                    $('.all_notes_class').append("<div class='hover_choice notes' id=" + this['id'] + "><a href=/note/" + this['id'] + "><p class='note_title_gap'><strong>" + this['title'] + "</strong></p><p class='note_preview_gap horizontal_line'>" + this['preview'] + "</p></a></div>");
+                });
+            };
+            // if notebook has any section, then load them
+            if (all_sections.length > 0) {
+                $(all_sections).each(function () {
+                    $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/section/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                });
+            };
         });
     });
 
-    /* create a new notebook */
+
+    /* show new notebook modal */
     $('#new_notebook_btn').on('click', function () {
         $('#new_notebook_modal').modal('toggle');
     });
 
+
     /* create a new notebook and redirect to that newly created notebook */
     $('#new_notebook_modal').on('click', '#new_notebook_title_btn', function () {
+        // removes all unnecessary spaces
         var new_notebook_title = $('#new_notebook_title')['0'].value.trim();
+        // if notebook name is not empty then create a new notebook
         if (new_notebook_title) {
             req = $.ajax({
                 url: "/new_notebook",
@@ -182,11 +190,11 @@ $(document).ready(function () {
             setTimeout(function(){
                 $('#notebook_title_cant_be_empty_modal').modal('toggle')
             }, 1000);
-        }
-
+        };
     });
 
-    /* if no notebook, section won't be created */
+
+    /* if no notebook, section won't be created, else open new section modal */
     $('#new_section_btn').on('click', function () {
         if (current_notebook != -100) {
             $('#new_section_modal').modal('toggle');
@@ -194,14 +202,17 @@ $(document).ready(function () {
         else {
             $('#create_notebook_first_modal').modal('toggle');
             setTimeout(function(){
-                $('#create_notebook_first_modal').modal('toggle')
+                $('#create_notebook_first_modal').modal('toggle');
               }, 1000);
-        }
+        };
     });
+
 
     /* create a new section and redirect to that newly created section */
     $('#new_section_modal').on('click', '#new_section_title_btn', function () {
+        // removes all unnecessary spaces
         var new_section_title = $('#new_section_title')['0'].value.trim();
+        // if section name is not empty then create a new section
         if (new_section_title) {
             req = $.ajax({
                 url: '/new_section',
@@ -229,14 +240,15 @@ $(document).ready(function () {
             $('#new_section_title')['0'].value = '';
             $('#section_title_cant_be_empty_modal').modal('toggle');
             setTimeout(function(){
-                $('#section_title_cant_be_empty_modal').modal('toggle')
+                $('#section_title_cant_be_empty_modal').modal('toggle');
             }, 1000);
-        }
-
+        };
     });
+
 
     /* create a new note */
     $('#new_note_btn').on('click', function () {
+        // if there is a section, then create a new note
         if (current_section != -100) {
             current_note = 0;
             current_time = get_current_time();
@@ -248,12 +260,13 @@ $(document).ready(function () {
         else {
             $('#create_section_first_modal').modal('toggle');
             setTimeout(function(){
-                $('#create_section_first_modal').modal('toggle')
+                $('#create_section_first_modal').modal('toggle');
               }, 1000);
-        }
+        };
     });
 
-    /* automatically saves a note */
+
+    /* executing this function saves a note in db */
     function save_note() {
         var note_id = current_note;
         var parent_notebook = current_notebook;
@@ -292,7 +305,9 @@ $(document).ready(function () {
         };
     };
 
+
     /* automatically saves notes after 30 seconds interval */
     window.setInterval(save_note, 30000);
+
 
 });
