@@ -320,6 +320,10 @@ $(document).ready(function () {
     };
 
 
+    /* executing this function hides app context menu */
+    function hide_context_menu() {
+        $('.context_menu').css({'display': 'none'})
+    };
 
 
 });
