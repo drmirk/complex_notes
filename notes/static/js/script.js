@@ -330,10 +330,31 @@ $(document).ready(function () {
     $('.all_sections_class').on('contextmenu', '.sections', function (event) {
         show_context_menu(event);
         window.onclick = hide_context_menu;
-        var note_id = $(this).attr('id');
-        console.log(note_id);
+        var section_id = $(this).attr('id');
+        console.log(section_id);
         $('#rename').on('click', function(){
-            $('#rename_section_modal').modal('show')
+            $('#rename_section_modal').modal('show');
+            /* create a new section and redirect to that newly created section */
+            $('#rename_section_modal').on('click', '#rename_section_title_btn', function () {
+                // removes all unnecessary spaces
+                var rename_section_title = $('#rename_section_title')['0'].value.trim();
+                // if renamed section name is not empty then save changes
+                if (rename_section_title) {
+                    req = $.ajax({
+                        url: '/rename_section',
+                        method: 'POST',
+                        data: { 'section_id': section_id, 'rename_section_title': rename_section_title }
+                    });
+                }
+                else {
+                    $('#rename_section_modal').modal('hide');
+                    $('#rename_section_title')['0'].value = '';
+                    $('#section_title_cant_be_empty_modal').modal('toggle');
+                    setTimeout(function(){
+                        $('#section_title_cant_be_empty_modal').modal('toggle');
+                    }, 1000);
+                };
+            });
         });
     });
 
