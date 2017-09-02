@@ -332,6 +332,9 @@ $(document).ready(function () {
         window.onclick = hide_context_menu;
         var note_id = $(this).attr('id');
         console.log(note_id);
+        $('#rename').on('click', function(){
+            $('#rename_section_modal').modal('show')
+        });
     });
 
 
