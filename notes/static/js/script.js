@@ -35,7 +35,7 @@ CKEDITOR.replace('note_body', {
 $(document).ready(function () {
 
     /* prevent browser default context menu */
-    $(document).on("contextmenu",function(){
+    $(document).on("contextmenu", function () {
         return false;
     });
 
@@ -51,7 +51,7 @@ $(document).ready(function () {
 
     /* convert time_zone_offset back to a date object, then run the toISOString(), then remove all seconds and miliseconds */
     function get_current_time() {
-        return ((new Date(Date.now() - time_zone_offset)).toISOString().split('.')[0].slice(0,-3));
+        return ((new Date(Date.now() - time_zone_offset)).toISOString().split('.')[0].slice(0, -3));
     };
 
 
@@ -79,7 +79,7 @@ $(document).ready(function () {
         req = $.ajax({
             url: "/only_note",
             method: 'POST',
-            data: {'note_id': note_id}
+            data: { 'note_id': note_id }
         });
         req.done(load_note);
     });
@@ -94,7 +94,7 @@ $(document).ready(function () {
         req = $.ajax({
             url: "/only_section",
             method: 'POST',
-            data: {'section_id': section_id}
+            data: { 'section_id': section_id }
         });
         req.done(function () {
             // load latest modified note or in case of empty, shows nothing
@@ -122,7 +122,7 @@ $(document).ready(function () {
         req = $.ajax({
             url: "/only_notebook",
             method: 'POST',
-            data: {'notebook_id': notebook_id}
+            data: { 'notebook_id': notebook_id }
         });
         req.done(function () {
             // load latest modified note or in case of empty show nothing
@@ -164,7 +164,7 @@ $(document).ready(function () {
             req = $.ajax({
                 url: "/new_notebook",
                 method: 'POST',
-                data: {'new_notebook_title': new_notebook_title}
+                data: { 'new_notebook_title': new_notebook_title }
             });
             // console.log(req);
             req.done(function () {
@@ -187,7 +187,7 @@ $(document).ready(function () {
             $('#new_notebook_modal').modal('toggle');
             $('#new_notebook_title')['0'].value = '';
             $('#notebook_title_cant_be_empty_modal').modal('toggle');
-            setTimeout(function(){
+            setTimeout(function () {
                 $('#notebook_title_cant_be_empty_modal').modal('toggle')
             }, 1000);
         };
@@ -201,9 +201,9 @@ $(document).ready(function () {
         }
         else {
             $('#create_notebook_first_modal').modal('toggle');
-            setTimeout(function(){
+            setTimeout(function () {
                 $('#create_notebook_first_modal').modal('toggle');
-              }, 1000);
+            }, 1000);
         };
     });
 
@@ -217,7 +217,7 @@ $(document).ready(function () {
             req = $.ajax({
                 url: '/new_section',
                 method: 'POST',
-                data: {'current_notebook': current_notebook, 'new_section_title': new_section_title}
+                data: { 'current_notebook': current_notebook, 'new_section_title': new_section_title }
             });
             req.done(function () {
                 var new_section_id = req.responseJSON['new_section_id'];
@@ -239,7 +239,7 @@ $(document).ready(function () {
             $('#new_section_modal').modal('toggle');
             $('#new_section_title')['0'].value = '';
             $('#section_title_cant_be_empty_modal').modal('toggle');
-            setTimeout(function(){
+            setTimeout(function () {
                 $('#section_title_cant_be_empty_modal').modal('toggle');
             }, 1000);
         };
@@ -259,9 +259,9 @@ $(document).ready(function () {
         }
         else {
             $('#create_section_first_modal').modal('toggle');
-            setTimeout(function(){
+            setTimeout(function () {
                 $('#create_section_first_modal').modal('toggle');
-              }, 1000);
+            }, 1000);
         };
     });
 
@@ -322,41 +322,63 @@ $(document).ready(function () {
 
     /* executing this function hides app context menu */
     function hide_context_menu() {
-        $('.context_menu').css({'display': 'none'})
+        $('.context_menu').css({ 'display': 'none' })
     };
 
+    var notebook_context = false;
+    var rename_notebook_id = 0;
+    var section_context = false;
+    var rename_section_id = 0;
 
     /* app context menu for each section */
     $('.all_sections_class').on('contextmenu', '.sections', function (event) {
         show_context_menu(event);
-        window.onclick = hide_context_menu;
-        var section_id = $(this).attr('id');
-        console.log(section_id);
-        $('#rename').on('click', function(){
-            $('#rename_section_modal').modal('show');
-            /* create a new section and redirect to that newly created section */
-            $('#rename_section_modal').on('click', '#rename_section_title_btn', function () {
-                // removes all unnecessary spaces
-                var rename_section_title = $('#rename_section_title')['0'].value.trim();
-                // if renamed section name is not empty then save changes
-                if (rename_section_title) {
-                    req = $.ajax({
-                        url: '/rename_section',
-                        method: 'POST',
-                        data: { 'section_id': section_id, 'rename_section_title': rename_section_title }
-                    });
-                }
-                else {
-                    $('#rename_section_modal').modal('hide');
-                    $('#rename_section_title')['0'].value = '';
-                    $('#section_title_cant_be_empty_modal').modal('toggle');
-                    setTimeout(function(){
-                        $('#section_title_cant_be_empty_modal').modal('toggle');
-                    }, 1000);
-                };
-            });
-        });
+        rename_section_id = $(this).attr('id');
+        section_context = true;
+        window.onclick = function () {
+            hide_context_menu();
+            section_context = false;
+            console.log('all ok');
+        };
     });
+
+    $('#rename').on('click', function (event) {
+        if (section_context) {
+            console.log('section');
+        }
+    });
+        // $('.context_menu').on('click', '#rename', function (event) {
+        //     console.log('002 ' + section_id);
+        //     $('#rename_section_modal').modal('show');
+        //     $('#rename_section_modal').on('click', '#rename_section_title_btn', function () {
+        //         // removes all unnecessary spaces
+        //         console.log('003 ' + section_id);
+        //         var rename_section_title = $('#rename_section_title')['0'].value.trim();
+        //         // if renamed section name is not empty then save changes
+        //         if (rename_section_title) {
+        //             console.log('004 R' + section_id);
+        //             req = $.ajax({
+        //                 url: '/rename_section',
+        //                 method: 'POST',
+        //                 data: { 'section_id': section_id, 'rename_section_title': rename_section_title }
+        //             });
+        //             req.done(function () {
+        //                 $('.all_sections_class > .sections#' + section_id).html("<div class='hover_choice sections' id=" + section_id + "><a href=/section" + section_id + "><p class='horizontal_line'>" + rename_section_title + "</p></a></div>");
+        //             });
+        //             $('#rename_section_modal').modal('hide');
+        //             $('#rename_section_title')['0'].value = '';
+        //         }
+        //         else {
+        //             $('#rename_section_modal').modal('hide');
+        //             $('#rename_section_title')['0'].value = '';
+        //             $('#section_title_cant_be_empty_modal').modal('toggle');
+        //             setTimeout(function(){
+        //                 $('#section_title_cant_be_empty_modal').modal('toggle');
+        //             }, 1000);
+        //         };
+        //     });
+       // });
+    // });
 
 
 });
