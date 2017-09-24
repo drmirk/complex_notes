@@ -533,3 +533,14 @@ def rename_section():
         db.session.commit()
         return jsonify({'return': 'success'})
 
+
+@app.route('/rename_notebook', methods=['POST'])
+def rename_notebook():
+    rename_notebook_id = request.form['rename_notebook_id']
+    rename_notebook_title = request.form['rename_notebook_title']
+    if rename_notebook_title.strip():
+        rename_notebook = Notebook.query.get_or_404(rename_notebook_id)
+        rename_notebook.set_title(rename_notebook_title)
+        db.session.commit()
+        return jsonify({'return': 'success'})
+
