@@ -391,5 +391,32 @@ $(document).ready(function () {
     });
 
 
+    $('#rename_notebook_modal').on('click', '#rename_notebook_title_btn', function () {
+        // removes all unnecessary spaces
+        var rename_notebook_title = $('#rename_notebook_title')['0'].value.trim();
+        // if renamed notebook name is not empty then save changes
+        if (rename_notebook_title) {
+            req = $.ajax({
+                url: '/rename_notebook',
+                method: 'POST',
+                data: { 'rename_notebook_id': rename_notebook_id, 'rename_notebook_title': rename_notebook_title }
+            });
+            req.done(function () {
+                $('.all_notebooks_class > .notebooks#' + rename_notebook_id).html("<div class='hover_choice notebooks' id=" + rename_notebook_id + "><a href=/notebook" + rename_notebook_id + "><p class='horizontal_line'>" + rename_notebook_title + "</p></a></div>");
+            });
+            $('#rename_notebook_modal').modal('hide');
+            $('#rename_notebook_title')['0'].value = '';
+        }
+        else {
+            $('#rename_notebook_modal').modal('hide');
+            $('#rename_notebook_title')['0'].value = '';
+            $('#notebook_title_cant_be_empty_modal').modal('toggle');
+            setTimeout(function(){
+                $('#notebook_title_cant_be_empty_modal').modal('toggle');
+            }, 1000);
+        };
+    });
+
+
 
 });
