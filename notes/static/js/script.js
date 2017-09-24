@@ -338,47 +338,41 @@ $(document).ready(function () {
         window.onclick = function () {
             hide_context_menu();
             section_context = false;
-            console.log('all ok');
         };
     });
 
     $('#rename').on('click', function (event) {
         if (section_context) {
-            console.log('section');
+            $('#rename_section_modal').modal('show');
         }
     });
-        // $('.context_menu').on('click', '#rename', function (event) {
-        //     console.log('002 ' + section_id);
-        //     $('#rename_section_modal').modal('show');
-        //     $('#rename_section_modal').on('click', '#rename_section_title_btn', function () {
-        //         // removes all unnecessary spaces
-        //         console.log('003 ' + section_id);
-        //         var rename_section_title = $('#rename_section_title')['0'].value.trim();
-        //         // if renamed section name is not empty then save changes
-        //         if (rename_section_title) {
-        //             console.log('004 R' + section_id);
-        //             req = $.ajax({
-        //                 url: '/rename_section',
-        //                 method: 'POST',
-        //                 data: { 'section_id': section_id, 'rename_section_title': rename_section_title }
-        //             });
-        //             req.done(function () {
-        //                 $('.all_sections_class > .sections#' + section_id).html("<div class='hover_choice sections' id=" + section_id + "><a href=/section" + section_id + "><p class='horizontal_line'>" + rename_section_title + "</p></a></div>");
-        //             });
-        //             $('#rename_section_modal').modal('hide');
-        //             $('#rename_section_title')['0'].value = '';
-        //         }
-        //         else {
-        //             $('#rename_section_modal').modal('hide');
-        //             $('#rename_section_title')['0'].value = '';
-        //             $('#section_title_cant_be_empty_modal').modal('toggle');
-        //             setTimeout(function(){
-        //                 $('#section_title_cant_be_empty_modal').modal('toggle');
-        //             }, 1000);
-        //         };
-        //     });
-       // });
-    // });
+
+    $('#rename_section_modal').on('click', '#rename_section_title_btn', function () {
+        // removes all unnecessary spaces
+        var rename_section_title = $('#rename_section_title')['0'].value.trim();
+        // if renamed section name is not empty then save changes
+        if (rename_section_title) {
+            req = $.ajax({
+                url: '/rename_section',
+                method: 'POST',
+                data: { 'rename_section_id': rename_section_id, 'rename_section_title': rename_section_title }
+            });
+            req.done(function () {
+                $('.all_sections_class > .sections#' + rename_section_id).html("<div class='hover_choice sections' id=" + rename_section_id + "><a href=/section" + rename_section_id + "><p class='horizontal_line'>" + rename_section_title + "</p></a></div>");
+            });
+            $('#rename_section_modal').modal('hide');
+            $('#rename_section_title')['0'].value = '';
+        }
+        else {
+            $('#rename_section_modal').modal('hide');
+            $('#rename_section_title')['0'].value = '';
+            $('#section_title_cant_be_empty_modal').modal('toggle');
+            setTimeout(function(){
+                $('#section_title_cant_be_empty_modal').modal('toggle');
+            }, 1000);
+        };
+    });
+
 
 
 });

@@ -525,10 +525,10 @@ def save_note():
 
 @app.route('/rename_section', methods=['POST'])
 def rename_section():
-    section_id = request.form['section_id']
+    rename_section_id = request.form['rename_section_id']
     rename_section_title = request.form['rename_section_title']
     if rename_section_title.strip():
-        rename_section = Section.query.get_or_404(section_id)
+        rename_section = Section.query.get_or_404(rename_section_id)
         rename_section.set_title(rename_section_title)
         db.session.commit()
         return jsonify({'return': 'success'})
