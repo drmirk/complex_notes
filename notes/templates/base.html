@@ -157,6 +157,31 @@
     </div>
     <!-- end of new notebook modal -->
 
+    <!-- rename notebook modal -->
+    <div class="modal" id="rename_notebook_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rename Notebook</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="rename_notebook_title" class="form-control-label">Notebook Name:</label>
+                            <input type="text" class="form-control" id="rename_notebook_title">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="rename_notebook_title_btn">Save Notebook</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of rename notebook modal -->
+
     <!-- create notebook first modal -->
     <div class="modal" id="create_notebook_first_modal">
         <div class="modal-dialog">
