@@ -335,15 +335,32 @@ $(document).ready(function () {
         show_context_menu(event);
         rename_section_id = $(this).attr('id');
         section_context = true;
+        notebook_context = false;
         window.onclick = function () {
             hide_context_menu();
             section_context = false;
         };
     });
 
+    /* app context menu for each notebook */
+    $('.all_notebooks_class').on('contextmenu', '.notebooks', function (event) {
+        show_context_menu(event);
+        rename_notebook_id = $(this).attr('id');
+        notebook_context = true;
+        section_context = false;
+        window.onclick = function () {
+            hide_context_menu();
+            notebook_context = false;
+        };
+    });
+
+
     $('#rename').on('click', function (event) {
         if (section_context) {
             $('#rename_section_modal').modal('show');
+        }
+        else if (notebook_context) {
+            $('#rename_notebook_modal').modal('show');
         }
     });
 
