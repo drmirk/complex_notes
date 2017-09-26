@@ -525,10 +525,10 @@ def save_note():
 
 @app.route('/rename_section', methods=['POST'])
 def rename_section():
-    rename_section_id = request.form['rename_section_id']
+    context_section_id = request.form['context_section_id']
     rename_section_title = request.form['rename_section_title']
     if rename_section_title.strip():
-        rename_section = Section.query.get_or_404(rename_section_id)
+        rename_section = Section.query.get_or_404(context_section_id)
         rename_section.set_title(rename_section_title)
         db.session.commit()
         return jsonify({'return': 'success'})
@@ -536,10 +536,10 @@ def rename_section():
 
 @app.route('/rename_notebook', methods=['POST'])
 def rename_notebook():
-    rename_notebook_id = request.form['rename_notebook_id']
+    context_notebook_id = request.form['context_notebook_id']
     rename_notebook_title = request.form['rename_notebook_title']
     if rename_notebook_title.strip():
-        rename_notebook = Notebook.query.get_or_404(rename_notebook_id)
+        rename_notebook = Notebook.query.get_or_404(context_notebook_id)
         rename_notebook.set_title(rename_notebook_title)
         db.session.commit()
         return jsonify({'return': 'success'})

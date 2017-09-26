@@ -326,14 +326,14 @@ $(document).ready(function () {
     };
 
     var notebook_context = false;
-    var rename_notebook_id = 0;
+    var context_notebook_id = 0;
     var section_context = false;
-    var rename_section_id = 0;
+    var context_section_id = 0;
 
     /* app context menu for each section */
     $('.all_sections_class').on('contextmenu', '.sections', function (event) {
         show_context_menu(event);
-        rename_section_id = $(this).attr('id');
+        context_section_id = $(this).attr('id');
         section_context = true;
         notebook_context = false;
         window.onclick = function () {
@@ -345,7 +345,7 @@ $(document).ready(function () {
     /* app context menu for each notebook */
     $('.all_notebooks_class').on('contextmenu', '.notebooks', function (event) {
         show_context_menu(event);
-        rename_notebook_id = $(this).attr('id');
+        context_notebook_id = $(this).attr('id');
         notebook_context = true;
         section_context = false;
         window.onclick = function () {
@@ -372,10 +372,10 @@ $(document).ready(function () {
             req = $.ajax({
                 url: '/rename_section',
                 method: 'POST',
-                data: { 'rename_section_id': rename_section_id, 'rename_section_title': rename_section_title }
+                data: { 'context_section_id': context_section_id, 'rename_section_title': rename_section_title }
             });
             req.done(function () {
-                $('.all_sections_class > .sections#' + rename_section_id).html("<div class='hover_choice sections' id=" + rename_section_id + "><a href=/section" + rename_section_id + "><p class='horizontal_line'>" + rename_section_title + "</p></a></div>");
+                $('.all_sections_class > .sections#' + context_section_id).html("<div class='hover_choice sections' id=" + context_section_id + "><a href=/section" + context_section_id + "><p class='horizontal_line'>" + rename_section_title + "</p></a></div>");
             });
             $('#rename_section_modal').modal('hide');
             $('#rename_section_title')['0'].value = '';
@@ -399,10 +399,10 @@ $(document).ready(function () {
             req = $.ajax({
                 url: '/rename_notebook',
                 method: 'POST',
-                data: { 'rename_notebook_id': rename_notebook_id, 'rename_notebook_title': rename_notebook_title }
+                data: { 'context_notebook_id': context_notebook_id, 'rename_notebook_title': rename_notebook_title }
             });
             req.done(function () {
-                $('.all_notebooks_class > .notebooks#' + rename_notebook_id).html("<div class='hover_choice notebooks' id=" + rename_notebook_id + "><a href=/notebook" + rename_notebook_id + "><p class='horizontal_line'>" + rename_notebook_title + "</p></a></div>");
+                $('.all_notebooks_class > .notebooks#' + context_notebook_id).html("<div class='hover_choice notebooks' id=" + context_notebook_id + "><a href=/notebook" + context_notebook_id + "><p class='horizontal_line'>" + rename_notebook_title + "</p></a></div>");
             });
             $('#rename_notebook_modal').modal('hide');
             $('#rename_notebook_title')['0'].value = '';
