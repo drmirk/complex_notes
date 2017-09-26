@@ -325,6 +325,7 @@ $(document).ready(function () {
         $('.context_menu').css({ 'display': 'none' })
     };
 
+    /* startup variables for right click context menu for notebooks & sections */
     var notebook_context = false;
     var context_notebook_id = 0;
     var section_context = false;
@@ -417,6 +418,13 @@ $(document).ready(function () {
         };
     });
 
-
+    $('#delete').on('click', function (event) {
+        if (section_context) {
+            $('#delete_section_modal').modal('show');
+        }
+        else if (notebook_context) {
+            $('#delete_notebook_modal').modal('show');
+        }
+    });
 
 });
