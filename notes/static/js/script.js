@@ -434,6 +434,7 @@ $(document).ready(function () {
             method: 'POST',
             data: { 'context_notebook_id': context_notebook_id }
         });
+        $('#delete_notebook_modal').modal('hide');
     });
 
 

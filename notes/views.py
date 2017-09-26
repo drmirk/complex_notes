@@ -544,3 +544,18 @@ def rename_notebook():
         db.session.commit()
         return jsonify({'return': 'success'})
 
+
+@app.route('/delete_notebook', methods=['POST'])
+def delete_notebook():
+    context_notebook_id = request.form['context_notebook_id']
+    context_notebook = Notebook.query.get_or_404(context_notebook_id)
+    all_notes = Note.query.filter_by(notebook_id=context_notebook_id).all()
+    all_sections = Section.query.filter_by(notebook_id=context_notebook_id).all()
+    for note in all_notes:
+        db.session.delete(note)
+    for section in all_sections:
+        db.session.delete(section)
+    db.session.delete(context_notebook)
+    db.session.commit()
+    return jsonify({'return': 'success'})
+
