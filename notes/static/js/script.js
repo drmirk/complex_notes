@@ -427,4 +427,15 @@ $(document).ready(function () {
         }
     });
 
+
+    $('#delete_notebook_modal').on('click', '#delete_notebook_btn', function () {
+        req = $.ajax({
+            url: '/delete_notebook',
+            method: 'POST',
+            data: { 'context_notebook_id': context_notebook_id }
+        });
+    });
+
+
+
 });
