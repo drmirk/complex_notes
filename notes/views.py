@@ -547,6 +547,7 @@ def rename_notebook():
 
 @app.route('/delete_notebook', methods=['POST'])
 def delete_notebook():
+    current_notebook = request.form['current_notebook']
     context_notebook_id = request.form['context_notebook_id']
     context_notebook = Notebook.query.get_or_404(context_notebook_id)
     all_notes = Note.query.filter_by(notebook_id=context_notebook_id).all()
@@ -557,5 +558,12 @@ def delete_notebook():
         db.session.delete(section)
     db.session.delete(context_notebook)
     db.session.commit()
-    return jsonify({'return': 'success'})
-
+    if current_notebook != context_notebook_id:
+        all_notebooks_models = Notebook.query.all()
+        all_notebooks = []
+        for notebook in all_notebooks_models:
+            temp = {}
+            temp['id'] = notebook.get_id()
+            temp['title'] = notebook.get_title()
+            all_notebooks.append(temp)
+        return jsonify({'return': 'success', 'all_notebooks': all_notebooks})

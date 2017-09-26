@@ -432,7 +432,18 @@ $(document).ready(function () {
         req = $.ajax({
             url: '/delete_notebook',
             method: 'POST',
-            data: { 'context_notebook_id': context_notebook_id }
+            data: { 'current_notebook': current_notebook, 'context_notebook_id': context_notebook_id }
+        });
+        req.done(function () {
+            if (current_notebook != context_notebook_id) {
+                $('.all_notebooks_class').empty();
+                var all_notebooks = req.responseJSON['all_notebooks'];
+                if (all_notebooks.length > 0) {
+                    $(all_notebooks).each(function () {
+                        $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                    });
+                };
+            }
         });
         $('#delete_notebook_modal').modal('hide');
     });
