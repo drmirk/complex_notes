@@ -463,5 +463,39 @@ $(document).ready(function () {
     });
 
 
+    $('#delete_section_modal').on('click', '#delete_section_btn', function () {
+        req = $.ajax({
+            url: '/delete_section',
+            method: 'POST',
+            data: { 'current_section': current_section, 'context_section_id': context_section_id }
+        });
+/*         req.done(function () {
+            $('.all_notebooks_class').empty();
+            var return_text = req.responseJSON['return']
+            if (return_text == 'no_notebook') {
+                $('.all_sections_class').empty();
+                $('.all_notes_class').empty();
+                $('#note_title').val('');
+                $('#note_creation_date').val('');
+                $('#note_modification_date').val('');
+                CKEDITOR.instances.note_body.setData('');
+                current_notebook = -100;
+                current_section = -100;
+                current_note = -100;
+            }
+            var all_notebooks = req.responseJSON['all_notebooks'];
+            if (all_notebooks.length > 0) {
+                $(all_notebooks).each(function () {
+                    $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                });
+            };
+            if (current_notebook == context_notebook_id) {
+                current_notebook = req.responseJSON['current_notebook'];
+                $('.all_notebooks_class > .notebooks#' + current_notebook).click();
+            }
+        });
+ */        $('#delete_section_modal').modal('hide');
+    });
+
 
 });
