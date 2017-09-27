@@ -562,7 +562,10 @@ def delete_notebook():
         single_note = Note.query.order_by(Note.modification_date.desc()).first()
         if single_note is None:
             current_notebook = Notebook.query.order_by(Notebook.title).first()
-            current_notebook = current_notebook.get_id()
+            if current_notebook is None:
+                return jsonify({'return': 'no_notebook'})
+            else:
+                current_notebook = current_notebook.get_id()
         else:
             current_notebook = single_note.get_notebook_id()
     all_notebooks_models = Notebook.query.all()

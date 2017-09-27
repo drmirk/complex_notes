@@ -436,6 +436,18 @@ $(document).ready(function () {
         });
         req.done(function () {
             $('.all_notebooks_class').empty();
+            var return_text = req.responseJSON['return']
+            if (return_text == 'no_notebook') {
+                $('.all_sections_class').empty();
+                $('.all_notes_class').empty();
+                $('#note_title').val('');
+                $('#note_creation_date').val('');
+                $('#note_modification_date').val('');
+                CKEDITOR.instances.note_body.setData('');
+                current_notebook = -100;
+                current_section = -100;
+                current_note = -100;
+            }
             var all_notebooks = req.responseJSON['all_notebooks'];
             if (all_notebooks.length > 0) {
                 $(all_notebooks).each(function () {
