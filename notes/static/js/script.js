@@ -437,10 +437,6 @@ $(document).ready(function () {
         req.done(function () {
             $('.all_notebooks_class').empty();
             var all_notebooks = req.responseJSON['all_notebooks'];
-            var check_no_note = req.responseJSON['return']
-            if (check_no_note == 'refresh') {
-                location.reload();
-            }
             if (all_notebooks.length > 0) {
                 $(all_notebooks).each(function () {
                     $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
