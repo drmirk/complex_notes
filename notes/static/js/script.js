@@ -435,14 +435,20 @@ $(document).ready(function () {
             data: { 'current_notebook': current_notebook, 'context_notebook_id': context_notebook_id }
         });
         req.done(function () {
-            if (current_notebook != context_notebook_id) {
-                $('.all_notebooks_class').empty();
-                var all_notebooks = req.responseJSON['all_notebooks'];
-                if (all_notebooks.length > 0) {
-                    $(all_notebooks).each(function () {
-                        $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
-                    });
-                };
+            $('.all_notebooks_class').empty();
+            var all_notebooks = req.responseJSON['all_notebooks'];
+            var check_no_note = req.responseJSON['return']
+            if (check_no_note == 'refresh') {
+                location.reload();
+            }
+            if (all_notebooks.length > 0) {
+                $(all_notebooks).each(function () {
+                    $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
+                });
+            };
+            if (current_notebook == context_notebook_id) {
+                current_notebook = req.responseJSON['current_notebook'];
+                $('.all_notebooks_class > .notebooks#' + current_notebook).click();
             }
         });
         $('#delete_notebook_modal').modal('hide');

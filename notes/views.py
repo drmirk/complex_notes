@@ -558,12 +558,16 @@ def delete_notebook():
         db.session.delete(section)
     db.session.delete(context_notebook)
     db.session.commit()
-    if current_notebook != context_notebook_id:
-        all_notebooks_models = Notebook.query.all()
-        all_notebooks = []
-        for notebook in all_notebooks_models:
-            temp = {}
-            temp['id'] = notebook.get_id()
-            temp['title'] = notebook.get_title()
-            all_notebooks.append(temp)
-        return jsonify({'return': 'success', 'all_notebooks': all_notebooks})
+    if current_notebook == context_notebook_id:
+        single_note = Note.query.order_by(Note.modification_date.desc()).first()
+        if single_note is None:
+            return jsonify({'return': 'refresh'})
+        current_notebook = single_note.get_notebook_id()
+    all_notebooks_models = Notebook.query.all()
+    all_notebooks = []
+    for notebook in all_notebooks_models:
+        temp = {}
+        temp['id'] = notebook.get_id()
+        temp['title'] = notebook.get_title()
+        all_notebooks.append(temp)
+    return jsonify({'return': 'success', 'current_notebook': current_notebook, 'all_notebooks': all_notebooks})
