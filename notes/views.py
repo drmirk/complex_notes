@@ -577,3 +577,23 @@ def delete_notebook():
         all_notebooks.append(temp)
     return jsonify({'return': 'success', 'current_notebook': current_notebook, 'all_notebooks': all_notebooks})
 
+
+@app.route('/delete_section', methods=['POST'])
+def delete_section():
+    parent_notebook = request.form['current_notebook']
+    current_section = request.form['current_section']
+    context_section_id = request.form['context_section_id']
+    context_section = Section.query.get_or_404(context_section_id)
+    all_notes = Note.query.filter_by(section_id=context_section_id).all()
+    for note in all_notes:
+        db.session.delete(note)
+    db.session.delete(context_section)
+    db.session.commit()
+    all_sections_models = Section.query.filter_by(notebook_id=parent_notebook).order_by(Section.title).all()
+    all_sections = []
+    for sec in all_sections_models:
+        temp = {}
+        temp['id'] = sec.get_id()
+        temp['title'] = sec.get_title()
+        all_sections.append(temp)
+    return jsonify({'return': 'success', 'all_sections': all_sections})

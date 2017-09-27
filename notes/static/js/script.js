@@ -467,7 +467,7 @@ $(document).ready(function () {
         req = $.ajax({
             url: '/delete_section',
             method: 'POST',
-            data: { 'current_section': current_section, 'context_section_id': context_section_id }
+            data: { 'current_notebook': current_notebook, 'current_section': current_section, 'context_section_id': context_section_id }
         });
 /*         req.done(function () {
             $('.all_notebooks_class').empty();
