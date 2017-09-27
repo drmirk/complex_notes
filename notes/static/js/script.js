@@ -471,39 +471,27 @@ $(document).ready(function () {
         });
         req.done(function () {
             $('.all_sections_class').empty();
+            var return_text = req.responseJSON['return'];
+            if (return_text == 'no_section') {
+                $('.all_notes_class').empty();
+                $('#note_title').val('');
+                $('#note_creation_date').val('');
+                $('#note_modification_date').val('');
+                CKEDITOR.instances.note_body.setData('');
+                current_section = -100;
+                current_note = -100;
+            }
             var all_sections = req.responseJSON['all_sections'];
             if (all_sections.length > 0) {
                 $(all_sections).each(function () {
                     $('.all_sections_class').append("<div class='hover_choice sections' id=" + this['id'] + "><a href=/section" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
                 });
             };
-        });
-/*         req.done(function () {
-            $('.all_notebooks_class').empty();
-            var return_text = req.responseJSON['return']
-            if (return_text == 'no_notebook') {
-                $('.all_sections_class').empty();
-                $('.all_notes_class').empty();
-                $('#note_title').val('');
-                $('#note_creation_date').val('');
-                $('#note_modification_date').val('');
-                CKEDITOR.instances.note_body.setData('');
-                current_notebook = -100;
-                current_section = -100;
-                current_note = -100;
-            }
-            var all_notebooks = req.responseJSON['all_notebooks'];
-            if (all_notebooks.length > 0) {
-                $(all_notebooks).each(function () {
-                    $('.all_notebooks_class').append("<div class='hover_choice notebooks' id=" + this['id'] + "><a href=/notebook/" + this['id'] + "><p class='horizontal_line'>" + this['title'] + "</p></a></div>");
-                });
-            };
-            if (current_notebook == context_notebook_id) {
-                current_notebook = req.responseJSON['current_notebook'];
+            if (current_section == context_section_id) {
                 $('.all_notebooks_class > .notebooks#' + current_notebook).click();
             }
         });
- */        $('#delete_section_modal').modal('hide');
+        $('#delete_section_modal').modal('hide');
     });
 
 

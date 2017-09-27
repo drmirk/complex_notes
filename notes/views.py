@@ -590,6 +590,8 @@ def delete_section():
     db.session.delete(context_section)
     db.session.commit()
     all_sections_models = Section.query.filter_by(notebook_id=parent_notebook).order_by(Section.title).all()
+    if all_sections_models is None:
+        return jsonify({'return': 'no_section'})
     all_sections = []
     for sec in all_sections_models:
         temp = {}
