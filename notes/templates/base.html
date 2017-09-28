@@ -11,7 +11,7 @@
     <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
 </head>
 
-<body>
+<body class="viewport">
     <div class="container-fluid">
         <div>
             {% with messages = get_flashed_messages() %}
@@ -32,7 +32,7 @@
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Notebook</p>
                     </div>
-                    <div class="viewport line_height vertical_line all_notebooks_class">
+                    <div class="fit_screen line_height vertical_line all_notebooks_class">
                         <div class="no_js_btn">
                             <form method="POST" id="notebook">
                                 {{ notebook_form.notebook_new_title }}<br>
@@ -56,7 +56,7 @@
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Section</p>
                     </div>
-                    <div class="viewport line_height vertical_line all_sections_class">
+                    <div class="fit_screen line_height vertical_line all_sections_class">
                         <div class="no_js_btn">
                             <form method="POST" id="section">
                                 {{ section_form.section_new_title }}<br>
@@ -80,7 +80,7 @@
                         <i class="fa fa-plus fa-2x button_center"></i>
                         <p class="button_center">New Note</p>
                     </div>
-                    <div class="viewport line_height vertical_line all_notes_class">
+                    <div class="fit_screen line_height vertical_line all_notes_class">
                         {% for note in all_notes %}
                         <div class="hover_choice notes" id="{{ note.id }}">
                             <a href="{{ url_for('note_view', note_id=note.id) }}">
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-7 viewport">
+            <div class="col-xl-7 fit_screen">
                 <form method="POST" id="main_form">
                     {{ note_form.csrf_token }}
                     <div class="no_js_btn">

@@ -52,10 +52,17 @@ body {
     /* border-right: thin solid #e8eff9; */
     border-right: thin solid #e8eff9;
 }
+
 .viewport {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.fit_screen {
     height: 100vh;
     overflow-y: auto;
 }
+
 .title {
     width: 100%;
 }
