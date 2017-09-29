@@ -151,7 +151,7 @@ $(document).ready(function () {
 
     /* show new notebook modal */
     $('#new_notebook_btn').on('click', function () {
-        $('#new_notebook_modal').modal('toggle');
+        $('#new_notebook_modal').modal('show');
         $('#new_notebook_title').focus();
 
     });
@@ -182,15 +182,15 @@ $(document).ready(function () {
                 $('.all_notebooks_class > .notebooks#' + new_notebook_id).click();
             });
             /* closes the modal, and empties the input field */
-            $('#new_notebook_modal').modal('toggle');
+            $('#new_notebook_modal').modal('hide');
             $('#new_notebook_title')['0'].value = '';
         }
         else {
-            $('#new_notebook_modal').modal('toggle');
+            $('#new_notebook_modal').modal('hide');
             $('#new_notebook_title')['0'].value = '';
-            $('#notebook_title_cant_be_empty_modal').modal('toggle');
+            $('#notebook_title_cant_be_empty_modal').modal('show');
             setTimeout(function () {
-                $('#notebook_title_cant_be_empty_modal').modal('toggle')
+                $('#notebook_title_cant_be_empty_modal').modal('hide')
             }, 1000);
         };
     });
@@ -199,13 +199,13 @@ $(document).ready(function () {
     /* if no notebook, section won't be created, else open new section modal */
     $('#new_section_btn').on('click', function () {
         if (current_notebook != -100) {
-            $('#new_section_modal').modal('toggle');
+            $('#new_section_modal').modal('show');
             $('#new_section_title').focus();
         }
         else {
-            $('#create_notebook_first_modal').modal('toggle');
+            $('#create_notebook_first_modal').modal('show');
             setTimeout(function () {
-                $('#create_notebook_first_modal').modal('toggle');
+                $('#create_notebook_first_modal').modal('hide');
             }, 1000);
         };
     });
@@ -235,15 +235,15 @@ $(document).ready(function () {
                 $('.all_sections_class > .sections#' + new_section_id).click();
             });
             /* closes the modal, and empties the input field */
-            $('#new_section_modal').modal('toggle');
+            $('#new_section_modal').modal('hide');
             $('#new_section_title')['0'].value = '';
         }
         else {
-            $('#new_section_modal').modal('toggle');
+            $('#new_section_modal').modal('hide');
             $('#new_section_title')['0'].value = '';
-            $('#section_title_cant_be_empty_modal').modal('toggle');
+            $('#section_title_cant_be_empty_modal').modal('show');
             setTimeout(function () {
-                $('#section_title_cant_be_empty_modal').modal('toggle');
+                $('#section_title_cant_be_empty_modal').modal('hide');
             }, 1000);
         };
     });
@@ -262,9 +262,9 @@ $(document).ready(function () {
             $('#note_title').focus();
         }
         else {
-            $('#create_section_first_modal').modal('toggle');
+            $('#create_section_first_modal').modal('show');
             setTimeout(function () {
-                $('#create_section_first_modal').modal('toggle');
+                $('#create_section_first_modal').modal('hide');
             }, 1000);
         };
     });
@@ -390,9 +390,9 @@ $(document).ready(function () {
         else {
             $('#rename_section_modal').modal('hide');
             $('#rename_section_title')['0'].value = '';
-            $('#section_title_cant_be_empty_modal').modal('toggle');
+            $('#section_title_cant_be_empty_modal').modal('show');
             setTimeout(function(){
-                $('#section_title_cant_be_empty_modal').modal('toggle');
+                $('#section_title_cant_be_empty_modal').modal('hide');
             }, 1000);
         };
     });
@@ -417,9 +417,9 @@ $(document).ready(function () {
         else {
             $('#rename_notebook_modal').modal('hide');
             $('#rename_notebook_title')['0'].value = '';
-            $('#notebook_title_cant_be_empty_modal').modal('toggle');
+            $('#notebook_title_cant_be_empty_modal').modal('show');
             setTimeout(function(){
-                $('#notebook_title_cant_be_empty_modal').modal('toggle');
+                $('#notebook_title_cant_be_empty_modal').modal('hide');
             }, 1000);
         };
     });

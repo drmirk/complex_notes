@@ -1,0 +1,46 @@
+   //When user click on bottom-left part of window
+    if(e.clientY > windowHeight && e.clientX <= windowWidth) {
+      $("#contextMenuContainer").css("left", e.clientX);
+      $("#contextMenuContainer").css("bottom", $(window).height()-e.clientY);
+      $("#contextMenuContainer").css("right", "auto");
+      $("#contextMenuContainer").css("top", "auto");
+    } else if(e.clientY > windowHeight && e.clientX > windowWidth) {
+      //When user click on bottom-right part of window
+      $("#contextMenuContainer").css("right", $(window).width()-e.clientX);
+      $("#contextMenuContainer").css("bottom", $(window).height()-e.clientY);
+      $("#contextMenuContainer").css("left", "auto");
+      $("#contextMenuContainer").css("top", "auto");
+    } else if(e.clientY <= windowHeight && e.clientX <= windowWidth) {
+      //When user click on top-left part of window
+      $("#contextMenuContainer").css("left", e.clientX);
+      $("#contextMenuContainer").css("top", e.clientY);
+      $("#contextMenuContainer").css("right", "auto");
+      $("#contextMenuContainer").css("bottom", "auto");
+    } else {
+       //When user click on top-right part of window
+      $("#contextMenuContainer").css("right", $(window).width()-e.clientX);
+      $("#contextMenuContainer").css("top", e.clientY);
+      $("#contextMenuContainer").css("left", "auto");
+      $("#contextMenuContainer").css("bottom", "auto");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
