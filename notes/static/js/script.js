@@ -494,5 +494,22 @@ $(document).ready(function () {
         $('#delete_section_modal').modal('hide');
     });
 
+    /* listens for any key press */
+    function listen_keys (event) {
+        var key_code = event.which || event.keyCode;
+        /* esc key is pressed */
+        if (key_code == 27) {
+            /*  closes app context menu */
+            hide_context_menu();
+            /* closes all modals */
+            $('.modal').modal('hide');
+        };
+        if (key_code) {
+            console.log(key_code)
+        };
+    };
+
+    /* based on key press executes custom things */
+    window.onkeydown = listen_keys;
 
 });
