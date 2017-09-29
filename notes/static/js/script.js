@@ -152,6 +152,8 @@ $(document).ready(function () {
     /* show new notebook modal */
     $('#new_notebook_btn').on('click', function () {
         $('#new_notebook_modal').modal('toggle');
+        $('#new_notebook_title').focus();
+
     });
 
 
@@ -198,6 +200,7 @@ $(document).ready(function () {
     $('#new_section_btn').on('click', function () {
         if (current_notebook != -100) {
             $('#new_section_modal').modal('toggle');
+            $('#new_section_title').focus();
         }
         else {
             $('#create_notebook_first_modal').modal('toggle');
@@ -256,6 +259,7 @@ $(document).ready(function () {
             $('#note_creation_date').val(current_time);
             $('#note_modification_date').val(current_time);
             CKEDITOR.instances.note_body.setData('');
+            $('#note_title').focus();
         }
         else {
             $('#create_section_first_modal').modal('toggle');
@@ -359,9 +363,11 @@ $(document).ready(function () {
     $('#rename').on('click', function (event) {
         if (section_context) {
             $('#rename_section_modal').modal('show');
+            $('#rename_section_title').focus();
         }
         else if (notebook_context) {
             $('#rename_notebook_modal').modal('show');
+            $('#rename_notebook_title').focus();
         }
     });
 
