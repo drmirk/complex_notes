@@ -497,15 +497,21 @@ $(document).ready(function () {
     /* listens for any key press */
     function listen_keys (event) {
         var key_code = event.which || event.keyCode;
+        /* ctrl key is pressed */
+        if (event.ctrlKey) {
+            /* options to do when ctrl + s is pressed */
+            if (key_code == 83) {
+                event.preventDefault();
+                event.stopPropagation();
+                save_note();
+            }
+        };
         /* esc key is pressed */
         if (key_code == 27) {
             /*  closes app context menu */
             hide_context_menu();
             /* closes all modals */
             $('.modal').modal('hide');
-        };
-        if (key_code) {
-            console.log(key_code)
         };
     };
 
