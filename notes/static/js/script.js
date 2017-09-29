@@ -497,6 +497,7 @@ $(document).ready(function () {
     /* listens for any key press */
     function listen_keys (event) {
         var key_code = event.which || event.keyCode;
+
         /* ctrl key is pressed */
         if (event.ctrlKey) {
             /* options to do when ctrl + s is pressed */
@@ -506,6 +507,7 @@ $(document).ready(function () {
                 save_note();
             }
         };
+
         /* esc key is pressed */
         if (key_code == 27) {
             /*  closes app context menu */
@@ -513,6 +515,21 @@ $(document).ready(function () {
             /* closes all modals */
             $('.modal').modal('hide');
         };
+
+        /* enter key is pressed */
+        if (key_code == 13) {
+            /* if modal open, stop default behavior
+            and confirm submission */
+            var is_modal_open = $('.modal.show').length
+            if (is_modal_open > 0) {
+                event.preventDefault();
+                event.stopPropagation();
+                $('.modal.show .enter_to_confirm').click();
+            }
+        }
+/*         if (key_code) {
+            console.log(key_code)
+        }; */
     };
 
     /* based on key press executes custom things */
